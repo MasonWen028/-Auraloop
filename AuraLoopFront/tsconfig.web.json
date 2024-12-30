@@ -1,0 +1,16 @@
+{
+  "include": [
+    "src/env.d.ts",
+    "src/**/*",
+    "src/**/*.vue"
+, "dist/lastfm.ts", "auto-imports.d.ts"  ],
+  "compilerOptions": {
+    "composite": true,
+    "maxNodeModuleJsDepth": 2,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "types": ["node", "./auto-imports.d.ts", "./components.d.ts"]
+  }
+}
