@@ -4,3 +4,7 @@
 
 /Auraloop/.vs/Auraloop
 /Auraloop/obj
+/ApiTester/obj
+/AuraLoopBackEnd/obj
+/NeteaseCloudMusicApi-SDK/bin/Debug/net6.0
+/NeteaseCloudMusicApi-SDK/obj
