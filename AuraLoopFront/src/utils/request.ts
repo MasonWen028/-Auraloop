@@ -5,7 +5,9 @@ import { getCookie } from "./cookie";
 import { isLogin } from "./auth";
 
 // 全局地址
-const baseURL: string = String(isDev ? "/api/netease" : import.meta.env["VITE_API_URL"]);
+const baseURL: string = "http://localhost:3000/";
+
+//String(isDev ? "/api/netease" : import.meta.env["VITE_API_URL"]);
 
 // 基础配置
 const server: AxiosInstance = axios.create({
