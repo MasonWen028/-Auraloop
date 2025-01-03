@@ -3,5 +3,10 @@ using Newtonsoft.Json;
 
 public class AlbumSongsaleboardRequestModel
 {
-// No data fields found
+    [JsonProperty("albumType")]
+    public int AlbumType { get; set; }
+
+    [JsonProperty("year")]
+    public string? Year { get; set; }
+
 }

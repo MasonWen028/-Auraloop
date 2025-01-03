@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 public class ArtistSubRequestModel
 {
     [JsonProperty("artistId")]
-    public string ArtistId { get; set; }
+    public long ArtistId { get; set; }
     [JsonProperty("artistIds")]
-    public string ArtistIds { get; set; }
+    public long[] ArtistIds { get; set; }
 }

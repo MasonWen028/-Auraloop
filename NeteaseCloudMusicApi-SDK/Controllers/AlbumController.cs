@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,23 +16,36 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Get album details by ID
+        /// </summary>
+        /// <param name="id">The unique identifier of the album</param>
+        /// <returns>Album details</returns>
+        /// <response code="200">Returns the album details</response>
+        /// <response code="500">If there is a server error</response>
+        [HttpGet]
         [Route("album")]
-        public async Task<IActionResult> Album()
+        [SwaggerOperation(
+            Summary = "Get Album by ID",
+            Description = "Retrieves the details of an album using its unique identifier.",
+            OperationId = "GetAlbumById",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Album details retrieved successfully.")]
+        [SwaggerResponse(500, "An error occurred while processing your request.")]
+        public async Task<IActionResult> Album([FromQuery]string id)
         {
             try
             {
+                //return Ok(new { a = 1 });
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/v1/album/${query.id}",
-                    OptionType = "weapi",
-                    Data = new AlbumRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    ApiEndpoint = $"/api/v1/album/{id}",
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
+
                 return Ok(result.data);
             }
             catch (Exception ex)
@@ -39,9 +54,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/detail")]
-        public async Task<IActionResult> AlbumDetail()
+        [SwaggerOperation(
+            Summary = "Get Album Details",
+            Description = "Retrieves detailed information about an album based on its ID.",
+            OperationId = "GetAlbumDetail",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Album details retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "The request parameters are invalid.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> AlbumDetail([FromQuery]string id)
         {
             try
             {
@@ -51,7 +75,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new AlbumDetailRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
@@ -64,9 +88,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/detail/dynamic")]
-        public async Task<IActionResult> AlbumDetailDynamic()
+        [SwaggerOperation(
+            Summary = "Get Dynamic Album Details",
+            Description = "Retrieves dynamic details about an album based on its ID. This may include real-time information or dynamically generated metadata.",
+            OperationId = "GetAlbumDetailDynamic",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Dynamic album details retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "The request parameters are invalid.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> AlbumDetailDynamic([FromQuery]string id)
         {
             try
             {
@@ -76,7 +109,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new AlbumDetailDynamicRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
@@ -89,19 +122,36 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/list")]
-        public async Task<IActionResult> AlbumList()
+        [SwaggerOperation(
+            Summary = "Retrieve Album List",
+            Description = "Fetches a list of albums based on pagination, region, and type. Supports filtering by area and type.",
+            OperationId = "GetAlbumList",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "List of albums retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid parameters provided.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> AlbumList([FromQuery]int limit, [FromQuery]int offset, [FromQuery]bool total, [FromQuery]string? area, [FromQuery]int type)
         {
             try
             {
+                if (string.IsNullOrEmpty(area))
+                {
+                    area = "ALL";
+                }
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/vipmall/albumproduct/list",
                     OptionType = "weapi",
                     Data = new AlbumListRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = total,
+                        Area = area,
+                        Type = type,
                     }
                 };
 
@@ -114,19 +164,36 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/list/style")]
-        public async Task<IActionResult> AlbumListStyle()
+        [SwaggerOperation(
+            Summary = "Retrieve Styled Album List",
+            Description = "Fetches a styled list of albums based on pagination and region. Supports filtering by area.",
+            OperationId = "GetAlbumListStyle",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Styled list of albums retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid parameters provided.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> AlbumListStyle([FromQuery]int limit, [FromQuery]int offset, [FromQuery]bool total, [FromQuery]string? area)
         {
             try
             {
+                if (string.IsNullOrEmpty(area))
+                {
+                    area = "Z_H";
+                }
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/vipmall/appalbum/album/style",
                     OptionType = "weapi",
                     Data = new AlbumListStyleRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = total,
+                        Area = area,
                     }
                 };
 
@@ -139,19 +206,36 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/new")]
-        public async Task<IActionResult> AlbumNew()
+        [SwaggerOperation(
+            Summary = "Retrieve New Albums",
+            Description = "Fetches a list of new albums based on pagination and region. Supports filtering by area.",
+            OperationId = "GetNewAlbums",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "New albums retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid parameters provided.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> AlbumNew([FromQuery] int limit, [FromQuery] int offset, [FromQuery] bool total, [FromQuery] string area)
         {
             try
             {
+                if (string.IsNullOrEmpty(area))
+                {
+                    area = "ALL";
+                }
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/album/new",
                     OptionType = "weapi",
                     Data = new AlbumNewRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = total,
+                        Area = area,
                     }
                 };
 
@@ -164,8 +248,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/newest")]
+        [SwaggerOperation(
+            Summary = "Retrieve Newest Albums",
+            Description = "Fetches the newest albums available in the discovery section.",
+            OperationId = "GetNewestAlbums",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Newest albums retrieved successfully.", typeof(object))]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
         public async Task<IActionResult> AlbumNewest()
         {
             try
@@ -173,11 +266,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/discovery/newAlbum",
-                    OptionType = "weapi",
-                    Data = new AlbumNewestRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
@@ -189,9 +278,19 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/privilege")]
-        public async Task<IActionResult> AlbumPrivilege()
+        [SwaggerOperation(
+            Summary = "Retrieve Album Privileges",
+            Description = "Fetches privilege information for a specific album based on its ID.",
+            OperationId = "GetAlbumPrivileges",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Album privilege information retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid or missing album ID.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> AlbumPrivilege([FromQuery]string id)
         {
             try
             {
@@ -201,7 +300,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new AlbumPrivilegeRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
@@ -214,19 +313,36 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/songsaleboard")]
-        public async Task<IActionResult> AlbumSongsaleboard()
+        [SwaggerOperation(
+            Summary = "Retrieve Album Song Sale Board",
+            Description = "Fetches the album song sale board based on album type, sale type (daily or otherwise), and year.",
+            OperationId = "GetAlbumSongSaleBoard",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Album song sale board retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid parameters provided.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> AlbumSongsaleboard([FromQuery]int albumType, [FromQuery]string type, [FromQuery]string? year)
         {
             try
             {
+                if (string.IsNullOrEmpty(type))
+                {
+                    type = "daily";
+                }
+
+
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/feealbum/songsaleboard/${type}/type",
+                    ApiEndpoint = $"/api/feealbum/songsaleboard/{type}/type",
                     OptionType = "weapi",
                     Data = new AlbumSongsaleboardRequestModel()
                     {
-                        // Replace with actual data if needed
+                        AlbumType = albumType, 
+                        Year = year
                     }
                 };
 
@@ -239,19 +355,30 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/sub")]
-        public async Task<IActionResult> AlbumSub()
+        [SwaggerOperation(
+            Summary = "Subscribe or Unsubscribe Album",
+            Description = "Subscribes to or unsubscribes from an album based on the provided action type (`t`) and album ID (`id`).",
+            OperationId = "AlbumSubscribeUnsubscribe",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Album subscription or unsubscription action completed successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid parameters provided.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> AlbumSub([FromQuery]int t, [FromQuery]string id)
         {
             try
             {
+                string qt = t == 1 ? "sub" : "unsub";
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/album/${query.t}",
+                    ApiEndpoint = $"/api/album/{qt}",
                     OptionType = "weapi",
                     Data = new AlbumSubRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
@@ -264,9 +391,19 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("album/sublist")]
-        public async Task<IActionResult> AlbumSublist()
+        [SwaggerOperation(
+            Summary = "Retrieve Album Subscription List",
+            Description = "Fetches a paginated list of albums the user is subscribed to, based on the provided `limit` and `offset`.",
+            OperationId = "GetAlbumSubscriptionList",
+            Tags = new[] { "Album" }
+        )]
+        [SwaggerResponse(200, "Album subscription list retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid parameters provided.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> AlbumSublist([FromQuery]int limit, [FromQuery]int offset)
         {
             try
             {
@@ -276,7 +413,9 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new AlbumSublistRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = true
                     }
                 };
 

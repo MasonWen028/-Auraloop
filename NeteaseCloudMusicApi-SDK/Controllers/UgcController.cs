@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -64,19 +65,37 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Search Artists by Keyword
+        /// </summary>
+        /// <param name="keyword">The keyword used to search for artists.</param>
+        /// <param name="limit">The maximum number of artists to return (default: 10).</param>
+        /// <returns>A list of artists matching the provided keyword.</returns>
+        [HttpGet]
         [Route("ugc/artist/search")]
-        public async Task<IActionResult> UgcArtistSearch()
+        [SwaggerOperation(
+            Summary = "Search Artists by Keyword",
+            Description = "Fetches a list of artists based on a given keyword. Supports limiting the number of results with the `limit` parameter.",
+            OperationId = "SearchArtistsByKeyword",
+            Tags = new[] { "Artist", "Artist" }
+        )]
+        [SwaggerResponse(200, "Artists retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Could be due to missing or invalid parameters.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> UgcArtistSearch([FromQuery]string keyword, [FromQuery]int limit = 10)
         {
             try
             {
+
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/rep/ugc/artist/search",
                     OptionType = "weapi",
                     Data = new UgcArtistSearchRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Keyword = keyword,
+                        Limit = limit
                     }
                 };
 

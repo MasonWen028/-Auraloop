@@ -12,5 +12,5 @@ public class AlbumListRequestModel
     [JsonProperty("area")]
     public string Area { get; set; }
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public int Type { get; set; }
 }

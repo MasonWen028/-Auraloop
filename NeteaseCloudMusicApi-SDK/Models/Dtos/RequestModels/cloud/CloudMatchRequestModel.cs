@@ -4,9 +4,9 @@ using Newtonsoft.Json;
 public class CloudMatchRequestModel
 {
     [JsonProperty("userId")]
-    public string UserId { get; set; }
+    public long UserId { get; set; }
     [JsonProperty("songId")]
-    public string SongId { get; set; }
+    public long SongId { get; set; }
     [JsonProperty("adjustSongId")]
-    public string AdjustSongId { get; set; }
+    public long AdjustSongId { get; set; }
 }

@@ -1,5 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using NeteaseCloudMusicApi_SDK.Helpers.RequestClient;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.ComponentModel.Design;
 using System.Threading.Tasks;
 
 namespace NeteaseCloudMusicApi_SDK.Controllers
@@ -139,19 +143,33 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("comment/hot")]
-        public async Task<IActionResult> CommentHot()
+        [SwaggerOperation(
+            Summary = "Retrieve Hot Comments for a Resource",
+            Description = "Fetches the hot comments for a specified resource, such as a song, album, or playlist. Supports pagination with limit and offset.",
+            OperationId = "GetHotComments",
+            Tags = new[] { "Comment", "Hot", "Tested" } // Marked as tested
+        )]
+        [SwaggerResponse(200, "Hot comments retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Could be due to missing or invalid parameters.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> CommentHot([FromQuery] CommentHotRequestModel requestModel)
         {
             try
             {
+                string t = Cfg.ResourceTypeMap.GetValueOrDefault(((int)requestModel.Type).ToString());
+
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/v1/resource/hotcomments/${query.type}${query.id}",
+                    ApiEndpoint = $"/api/v1/resource/hotcomments/{t}{requestModel.Id}",
                     OptionType = "weapi",
-                    Data = new CommentHotRequestModel()
+                    Data = new 
                     {
-                        // Replace with actual data if needed
+                        rid = requestModel.Id,
+                        limit = requestModel.Limit,
+                        offset = requestModel.Offset,
+                        beforeTime = 0
                     }
                 };
 
@@ -189,19 +207,32 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("comment/like")]
-        public async Task<IActionResult> CommentLike()
+        [SwaggerOperation(
+            Summary = "Like or Unlike a Comment",
+            Description = "Allows liking or unliking a comment on a specific resource. The operation depends on the provided type of resource and comment ID.",
+            OperationId = "CommentLikeOrUnlike",
+            Tags = new[] { "Comment", "Like" }
+        )]
+        [SwaggerResponse(200, "Comment liked or unliked successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Could be due to missing or invalid parameters.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+
+        public async Task<IActionResult> CommentLike([FromQuery] CommentLikeRequestModel requestModel)
         {
             try
             {
+                string t = requestModel.Operation == 1 ? "like" : "unlike";
+                string type = Cfg.ResourceTypeMap.GetValueOrDefault(((int)requestModel.Type).ToString());
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/v1/comment/${query.t}",
+                    ApiEndpoint = $"/api/v1/comment/{t}",
                     OptionType = "weapi",
-                    Data = new CommentLikeRequestModel()
+                    Data = new
                     {
-                        // Replace with actual data if needed
+                        threadId = type != "A_EV_2_" ? type + requestModel.Id : requestModel.Id.ToString(),
+                        commentId = requestModel.Id
                     }
                 };
 
@@ -264,19 +295,38 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Retrieve Comments for a Song
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("comment/new")]
-        public async Task<IActionResult> CommentNew()
+        [SwaggerOperation(
+            Summary = "Retrieve Comments for a Song",
+            Description = "Fetches comments associated with a specific song or resource. The request supports pagination, cursor-based navigation, and sorting options.",
+            OperationId = "GetSongComments",
+            Tags = new[] { "Comment", "Song" }
+        )]
+        [SwaggerResponse(200, "Comments retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Could be due to missing or invalid parameters.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> CommentNew([FromQuery] CommentNewRequestModel requestModel)
         {
             try
             {
+                string t = Cfg.ResourceTypeMap.GetValueOrDefault(((int)requestModel.Type).ToString());
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/v2/resource/comments",
                     OptionType = "weapi",
-                    Data = new CommentNewRequestModel()
-                    {
-                        // Replace with actual data if needed
+                    Data =new { 
+                        threadId = t + requestModel.Id,
+                        showInner = true,
+                        pageNo = requestModel.PageNo,
+                        pageSize = requestModel.PageSize,
+                        cursor = requestModel.Cursor,
+                        sortType = (int)requestModel.SortType,
                     }
                 };
 

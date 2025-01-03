@@ -16,7 +16,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
         [HttpPost]
         [Route("aidj/content/rcmd")]
-        public async Task<IActionResult> AidjContentRcmd()
+        public async Task<IActionResult> AidjContentRcmd([FromBody]ExtInfo requestModel)
         {
             try
             {

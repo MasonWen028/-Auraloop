@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 public class ArtistMvRequestModel
 {
     [JsonProperty("artistId")]
-    public string ArtistId { get; set; }
+    public long ArtistId { get; set; }
     [JsonProperty("limit")]
-    public string Limit { get; set; }
+    public int Limit { get; set; }
     [JsonProperty("offset")]
-    public string Offset { get; set; }
+    public int Offset { get; set; }
     [JsonProperty("total")]
     public bool Total { get; set; }
 }

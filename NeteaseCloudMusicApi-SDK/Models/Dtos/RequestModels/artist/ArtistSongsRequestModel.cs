@@ -10,7 +10,7 @@ public class ArtistSongsRequestModel
     [JsonProperty("work_type")]
     public int WorkType { get; set; }
     [JsonProperty("order")]
-    public string Order { get; set; }
+    public string Order { get; set; } = "hot";
     [JsonProperty("offset")]
     public int Offset { get; set; }
     [JsonProperty("limit")]

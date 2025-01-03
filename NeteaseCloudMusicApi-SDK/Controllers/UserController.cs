@@ -116,7 +116,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
         [HttpPost]
         [Route("user/cloud")]
-        public async Task<IActionResult> UserCloud()
+        public async Task<IActionResult> UserCloud([FromQuery]int limit = 30, [FromQuery]int offset = 0)
         {
             try
             {
@@ -126,7 +126,8 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new UserCloudRequestModel()
                     {
-                        // Replace with actual data if needed
+                       Limit = limit,
+                       Offset = offset
                     }
                 };
 
@@ -141,7 +142,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
         [HttpPost]
         [Route("user/cloud/del")]
-        public async Task<IActionResult> UserCloudDel()
+        public async Task<IActionResult> UserCloudDel([FromQuery]long id)
         {
             try
             {
@@ -151,7 +152,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new UserCloudDelRequestModel()
                     {
-                        // Replace with actual data if needed
+                        SongIds = new long[] { id}
                     }
                 };
 

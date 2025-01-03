@@ -14,20 +14,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [Route("artists")]
-        public async Task<IActionResult> Artists()
+        public async Task<IActionResult> Artists([FromQuery]string id)
         {
             try
             {
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/v1/artist/${query.id}",
-                    OptionType = "weapi",
-                    Data = new ArtistsRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    ApiEndpoint = $"/api/v1/artist/{id}",
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);

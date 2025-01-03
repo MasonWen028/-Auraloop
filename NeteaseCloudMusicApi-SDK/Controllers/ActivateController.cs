@@ -16,7 +16,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
         [HttpPost]
         [Route("activate/init/profile")]
-        public async Task<IActionResult> ActivateInitProfile()
+        public async Task<IActionResult> ActivateInitProfile([FromBody] ActivateInitProfileRequestModel requestModel)
         {
             try
             {
@@ -24,10 +24,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/activate/initProfile",
                     OptionType = "weapi",
-                    Data = new ActivateInitProfileRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = requestModel
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
