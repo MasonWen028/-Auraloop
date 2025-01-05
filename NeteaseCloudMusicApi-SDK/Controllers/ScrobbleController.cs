@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using static System.Collections.Specialized.BitVector32;
 
 namespace NeteaseCloudMusicApi_SDK.Controllers
 {
@@ -14,9 +18,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Song listening check-in
+        /// </summary>
+        /// <param name="id">user id</param>
+        /// <param name="sourceid">song id</param>
+        /// <param name="time">check-in time</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("scrobble")]
-        public async Task<IActionResult> Scrobble()
+        [SwaggerOperation(summary: "Song listening check-in")]
+        public async Task<IActionResult> Scrobble([FromQuery]long id, [FromQuery]long? sourceid, [FromQuery]long? time)
         {
             try
             {
@@ -24,14 +36,29 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/feedback/weblog",
                     OptionType = "weapi",
-                    Data = new ScrobbleRequestModel()
+                    Data = new
                     {
-                        // Replace with actual data if needed
+                        logs = "[" + JsonConvert.SerializeObject(new {
+                            action = "play",
+                            json = new
+                                    {
+                                    download = 0,
+                              end = "playend",
+                              id = id,
+                              sourceId = sourceid,
+                              time = time,
+                              type = "song",
+                                wifi = 0,
+                              source = "list",
+                              mainsite = 1,
+                              content = "",
+                            }
+                        }) + "]"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

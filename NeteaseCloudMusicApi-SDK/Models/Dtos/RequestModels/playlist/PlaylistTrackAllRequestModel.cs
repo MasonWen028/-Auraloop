@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 public class PlaylistTrackAllRequestModel
 {
     [JsonProperty("id")]
-    public string Id { get; set; }
+    public long Id { get; set; }
     [JsonProperty("n")]
     public int N { get; set; }
     [JsonProperty("s")]

@@ -46,7 +46,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
 
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -80,7 +80,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -156,7 +156,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -198,7 +198,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -218,7 +218,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
         [SwaggerResponse(400, "Invalid parameters provided.")]
         [SwaggerResponse(500, "An internal server error occurred.")]
 
-        public async Task<IActionResult> AlbumNew([FromQuery] int limit, [FromQuery] int offset, [FromQuery] bool total, [FromQuery] string area)
+        public async Task<IActionResult> AlbumNew([FromQuery] int limit, [FromQuery] int offset, [FromQuery] bool total, [FromQuery]string? area)
         {
             try
             {
@@ -240,7 +240,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -270,7 +270,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -305,7 +305,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -347,7 +347,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -383,7 +383,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -420,7 +420,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

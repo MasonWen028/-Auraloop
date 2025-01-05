@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,8 +40,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Search data by default method
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("search/default")]
+        [SwaggerOperation(summary: "Search data by default method")]
         public async Task<IActionResult> SearchDefault()
         {
             try
@@ -48,15 +54,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/search/defaultkeyword/get",
-                    OptionType = "weapi",
-                    Data = new SearchDefaultRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -81,7 +83,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -89,8 +91,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch hot stuff
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("search/hot/detail")]
+        [SwaggerOperation(summary: " Fetch hot stuff")]
         public async Task<IActionResult> SearchHotDetail()
         {
             try
@@ -99,14 +106,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/hotsearchlist/get",
                     OptionType = "weapi",
-                    Data = new SearchHotDetailRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,9 +117,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Match local song info with the cloud tracks, a bit like checking before uploading
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("search/match")]
-        public async Task<IActionResult> SearchMatch()
+        [SwaggerOperation(summary: "Match local song info with the cloud tracks")]
+        public async Task<IActionResult> SearchMatch([FromQuery] SearchMatchRequestModel requestModel)
         {
             try
             {
@@ -124,14 +133,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/search/match/new",
                     OptionType = "weapi",
-                    Data = new SearchMatchRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = requestModel
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -139,9 +145,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Search data by multimatch
+        /// </summary>
+        /// <param name="type">search type</param>
+        /// <param name="s">keywords</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("search/multimatch")]
-        public async Task<IActionResult> SearchMultimatch()
+        public async Task<IActionResult> SearchMultimatch([FromQuery]int type = 1, [FromQuery]string keywords = "")
         {
             try
             {
@@ -151,12 +163,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new SearchMultimatchRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Type = type,
+                        S = keywords
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -164,24 +177,33 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        
+        /// <summary>
+        /// Fetch suggestion search keywords
+        /// </summary>
+        /// <param name="keywords"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("search/suggest")]
-        public async Task<IActionResult> SearchSuggest()
+        [SwaggerOperation(summary: "Fetch suggestion search keywords")]
+        public async Task<IActionResult> SearchSuggest([FromQuery]string? keywords, [FromQuery]string type = "mobile")
         {
             try
             {
+                string end = type == "mobile" ? "keyword" : "web";
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/search/suggest/",
+                    ApiEndpoint = "/api/search/suggest/" + type,
                     OptionType = "weapi",
                     Data = new SearchSuggestRequestModel()
                     {
-                        // Replace with actual data if needed
+                        S = keywords ?? ""
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

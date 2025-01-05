@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,9 +16,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch chorus time of a song
+        /// </summary>
+        /// <param name="id">song id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("song/chorus")]
-        public async Task<IActionResult> SongChorus()
+        [SwaggerOperation(summary: " Fetch chorus time of a song")]
+        public async Task<IActionResult> SongChorus([FromQuery]long id)
         {
             try
             {
@@ -26,12 +34,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new SongChorusRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Ids = $"[{id}]"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,24 +47,29 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch Song details
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("song/detail")]
-        public async Task<IActionResult> SongDetail()
+        [SwaggerOperation(summary: "Fetch Song details")]
+        public async Task<IActionResult> SongDetail([FromQuery] long[] ids)
         {
             try
             {
-                var apiModel = new ApiModel
+                var sondRequestData = new { c = JsonConvert.SerializeObject(ids) };
+
+                var songApiModel = new ApiModel()
                 {
                     ApiEndpoint = "/api/v3/song/detail",
-                    OptionType = "weapi",
-                    Data = new SongDetailRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = sondRequestData,
+                    OptionType = "weapi"
                 };
+                var songRes = await _genericService.HandleRequestAsync(songApiModel);
 
-                var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(songRes.body);
             }
             catch (Exception ex)
             {
@@ -81,7 +94,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -106,7 +119,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,24 +127,37 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch the download url of targeted song through client.
+        /// </summary>
+        /// <param name="id">the identifier of targeted song</param>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("song/download/url/v1")]
-        public async Task<IActionResult> SongDownloadUrlV1()
+        [SwaggerOperation(summary: "Fetch the download url of targeted song through client.")]
+        public async Task<IActionResult> SongDownloadUrlV1([FromQuery]long id, [FromQuery]string level = "h")
         {
             try
             {
+                SongLevel songLevel = (SongLevel)Enum.Parse(typeof(SongLevel), level);
+                var (levelName, levalChnName) = SongLevelData.Levels.GetValueOrDefault(songLevel, ("exhigh", "º´∏ﬂ“Ù÷ "));
+
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/song/enhance/download/url/v1",
                     OptionType = "weapi",
                     Data = new SongDownloadUrlV1RequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id,
+                        ImmerseType = "C51",
+                        Level = levelName
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -139,9 +165,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch the dynamic cover for targeted song
+        /// </summary>
+        /// <param name="id">song id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("song/dynamic/cover")]
-        public async Task<IActionResult> SongDynamicCover()
+        [SwaggerOperation(summary: "Fetch the dynamic cover for targeted song")]
+        public async Task<IActionResult> SongDynamicCover([FromQuery]long id)
         {
             try
             {
@@ -151,12 +183,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new SongDynamicCoverRequestModel()
                     {
-                        // Replace with actual data if needed
+                        SongId = id
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -181,7 +213,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -206,7 +238,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -214,9 +246,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch sound quality of targeted song
+        /// </summary>
+        /// <param name="id">the identifier of target</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("song/music/detail")]
-        public async Task<IActionResult> SongMusicDetail()
+        [SwaggerOperation(summary: "Fetch sound quality of targeted song")]
+        public async Task<IActionResult> SongMusicDetail([FromQuery]long id)
         {
             try
             {
@@ -226,12 +264,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new SongMusicDetailRequestModel()
                     {
-                        // Replace with actual data if needed
+                        SongId = id
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -256,7 +294,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -281,7 +319,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -306,7 +344,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -331,7 +369,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -356,7 +394,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -364,24 +402,34 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch song uri
+        /// </summary>
+        /// <param name="id">song Id</param>
+        /// <param name="level">quality level: standard, exhigh, lossless, hires, jyeffect, sky, jymaster</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("song/url/v1")]
-        public async Task<IActionResult> SongUrlV1()
+        [SwaggerOperation(summary: "Fetch song uri")]
+        public async Task<IActionResult> SongUrlV1([FromQuery]long id, [FromQuery]string level)
         {
             try
-            {
+            {                             
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/song/enhance/player/url/v1",
                     OptionType = "weapi",
                     Data = new SongUrlV1RequestModel()
                     {
-                        // Replace with actual data if needed
+                        EncodeType = "flac",
+                        Ids = $"[{id}]",
+                        Level = level.ToString(),
+                        ImmerseType = level == SongLevelForUrl.sky.ToString() ? "c51" : ""
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -406,7 +454,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

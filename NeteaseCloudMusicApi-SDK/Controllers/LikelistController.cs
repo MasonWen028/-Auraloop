@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,9 +15,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch Songs liked by user without order
+        /// </summary>
+        /// <param name="uid">user id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("likelist")]
-        public async Task<IActionResult> Likelist()
+        [SwaggerOperation("Fetch Songs liked by user")]
+        public async Task<IActionResult> Likelist([FromQuery]long uid)
         {
             try
             {
@@ -26,12 +33,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new LikelistRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Uid = uid
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

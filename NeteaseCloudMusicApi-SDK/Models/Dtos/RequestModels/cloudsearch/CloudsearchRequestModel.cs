@@ -6,7 +6,7 @@ public class CloudsearchRequestModel
     [JsonProperty("s")]
     public string S { get; set; }
     [JsonProperty("type")]
-    public int Type { get; set; }
+    public SearchTypes Type { get; set; }
     [JsonProperty("limit")]
     public int Limit { get; set; }
     [JsonProperty("offset")]

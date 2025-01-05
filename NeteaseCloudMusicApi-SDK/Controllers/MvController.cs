@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,9 +16,19 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch all MVs
+        /// </summary>
+        /// <param name="area">area of it</param>
+        /// <param name="type">type of it</param>
+        /// <param name="order">order method</param>
+        /// <param name="limit">page size</param>
+        /// <param name="offset">page no</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("mv/all")]
-        public async Task<IActionResult> MvAll()
+        [SwaggerOperation(summary: "Fetch all MVs")]
+        public async Task<IActionResult> MvAll([FromQuery]string? area = "全部", [FromQuery]string? type = "全部", [FromQuery]string? order = "上升最快", [FromQuery]int limit = 30, [FromQuery]int offset = 0)
         {
             try
             {
@@ -26,12 +38,19 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new MvAllRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Tags = JsonConvert.SerializeObject(new {
+                            地区 = area,
+                            类型 = type,
+                            排序 = order
+                        }),
+                        Limit = limit,
+                        Offset = offset,
+                        Total = true
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,9 +58,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch detailed information of MV
+        /// </summary>
+        /// <param name="mvid">mv id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("mv/detail")]
-        public async Task<IActionResult> MvDetail()
+        [SwaggerOperation(summary: "Fetch detailed information of MV")]
+        public async Task<IActionResult> MvDetail([FromQuery]long mvid)
         {
             try
             {
@@ -51,12 +76,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new MvDetailRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = mvid
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -64,24 +89,30 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch count of like, forward and comment
+        /// </summary>
+        /// <param name="mvid">MV id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("mv/detail/info")]
-        public async Task<IActionResult> MvDetailInfo()
+        [SwaggerOperation("Fetch count of like, forward and comment")]
+        public async Task<IActionResult> MvDetailInfo([FromQuery]long mvid)
         {
             try
             {
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "R_MV_5_${query.mvid}",
+                    ApiEndpoint = "/api/comment/commentthread/info",
                     OptionType = "weapi",
                     Data = new MvDetailInfoRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Threadid = $"R_MV_5_{mvid}"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -106,7 +137,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -131,7 +162,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -156,7 +187,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -164,9 +195,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fecth MVs subscribed by user with pagination
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("mv/sublist")]
-        public async Task<IActionResult> MvSublist()
+        [SwaggerOperation(summary: " Fecth MVs subscribed by user")]
+        public async Task<IActionResult> MvSublist([FromQuery] int limit = 50, [FromQuery] int offset = 0)
         {
             try
             {
@@ -176,12 +215,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new MvSublistRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = true
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -189,9 +230,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fecth MV url
+        /// </summary>
+        /// <param name="id">mv url</param>
+        /// <param name="r">resolution</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("mv/url")]
-        public async Task<IActionResult> MvUrl()
+        [SwaggerOperation(summary: "Fecth MV url")]
+        public async Task<IActionResult> MvUrl([FromQuery]long id, [FromQuery]int r = 1080)
         {
             try
             {
@@ -201,12 +249,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new MvUrlRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id,
+                        R = r
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

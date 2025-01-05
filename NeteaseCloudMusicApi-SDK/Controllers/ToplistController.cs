@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +15,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch the list of toplist
+        /// </summary>
+        /// <returns></returns>
+        [SwaggerOperation(
+            summary: "Fetch the list of toplist",
+            Tags = new string[] { "Toplist", "List" }
+        )]
+        [HttpGet]
         [Route("toplist")]
         public async Task<IActionResult> Toplist()
         {
@@ -23,15 +32,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/toplist",
-                    OptionType = "weapi",
-                    Data = new ToplistRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -56,7 +61,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -64,7 +69,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch the details of toplist
+        /// </summary>
+        /// <returns></returns>
+        [SwaggerOperation(
+            summary: "Fetch the details of toplist",
+            Tags = new string[] { "Toplist", "Detail" }
+        )]
+        [HttpGet]
         [Route("toplist/detail")]
         public async Task<IActionResult> ToplistDetail()
         {
@@ -73,15 +86,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/toplist/detail",
-                    OptionType = "weapi",
-                    Data = new ToplistDetailRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

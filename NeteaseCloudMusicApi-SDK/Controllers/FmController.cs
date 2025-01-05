@@ -14,9 +14,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Add new sone to trash bin
+        /// </summary>
+        /// <param name="id">the identifier of targeted song</param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("fm/trash")]
-        public async Task<IActionResult> FmTrash()
+        public async Task<IActionResult> FmTrash([FromQuery]long id, [FromQuery]long time = 25)
         {
             try
             {
@@ -26,12 +32,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new FmTrashRequestModel()
                     {
-                        // Replace with actual data if needed
+                        SongId = id,
+                        Time = time,
+                        Alg = "RT"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

@@ -18,9 +18,10 @@ namespace NeteaseCloudMusicApi_SDK
             {
                 options.AddPolicy("AllowAll", policy =>
                 {
-                    policy.AllowAnyOrigin() // Allows all origins
-                          .AllowAnyHeader() // Allows any headers
-                          .AllowAnyMethod(); // Allows any HTTP methods (GET, POST, PUT, DELETE, etc.)
+                    policy.SetIsOriginAllowed(origin => true) // Allows all origins
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials(); // Allows any HTTP methods (GET, POST, PUT, DELETE, etc.)
                 });
             });
 
@@ -76,6 +77,8 @@ namespace NeteaseCloudMusicApi_SDK
 
             var app = builder.Build();
 
+            app.UseCors("AllowAll");
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {                
@@ -93,7 +96,7 @@ namespace NeteaseCloudMusicApi_SDK
 
             app.UseResponseCompression();
 
-            app.UseCors("AllowAll");
+            
 
             app.UseRouting();
 

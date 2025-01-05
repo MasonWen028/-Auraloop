@@ -43,7 +43,7 @@ public static class RequestHelper
         return new ApiResponse
         {
             status = status,
-            data = content,
+            body = content,
             cookie = cookieArray
         };
     }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,7 +15,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch account information of corresponding user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("user/account")]
         public async Task<IActionResult> UserAccount()
         {
@@ -24,14 +29,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/nuser/account/get",
                     OptionType = "weapi",
-                    Data = new UserAccountRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -56,7 +57,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -81,7 +82,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -106,7 +107,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,7 +115,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch cloud files of user with pagination
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("user/cloud")]
         public async Task<IActionResult> UserCloud([FromQuery]int limit = 30, [FromQuery]int offset = 0)
         {
@@ -132,7 +139,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -157,7 +164,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -182,7 +189,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -207,7 +214,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -215,24 +222,28 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch user details by uid
+        /// </summary>
+        /// <param name="uid">the unique identifier of user</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("user/detail")]
-        public async Task<IActionResult> UserDetail()
+        public async Task<IActionResult> UserDetail([FromQuery]long uid)
         {
             try
             {
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/v1/user/detail/${query.uid}",
-                    OptionType = "weapi",
-                    Data = new UserDetailRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    ApiEndpoint = $"/api/v1/user/detail/{uid}",
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                result.body = result.body.Replace("avatarImgId_str", "avatarImgIdStr");
+
+                //TODO 
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -257,7 +268,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -282,7 +293,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -307,7 +318,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -332,7 +343,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -357,7 +368,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -365,8 +376,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch user level
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("user/level")]
+        [SwaggerOperation("Fetch user level")]
         public async Task<IActionResult> UserLevel()
         {
             try
@@ -374,15 +390,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/user/level",
-                    OptionType = "weapi",
-                    Data = new UserLevelRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -407,7 +419,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -432,7 +444,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -440,9 +452,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch playlists of user by pagination
+        /// </summary>
+        /// <param name="uid">user id</param>
+        /// <param name="limit">page size</param>
+        /// <param name="offset">page no</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("user/playlist")]
-        public async Task<IActionResult> UserPlaylist()
+        public async Task<IActionResult> UserPlaylist([FromQuery]long uid, [FromQuery]int limit, [FromQuery]int offset = 0)
         {
             try
             {
@@ -452,12 +471,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new UserPlaylistRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Uid = uid,
+                        IncludeVideo = true,
+                        Limit = limit,
+                        Offset = offset
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -482,7 +504,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -507,7 +529,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -532,7 +554,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -557,7 +579,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -582,7 +604,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -607,7 +629,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -615,7 +637,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch subscribe count of user
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("user/subcount")]
         public async Task<IActionResult> UserSubcount()
         {
@@ -624,15 +650,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/subcount",
-                    OptionType = "weapi",
-                    Data = new UserSubcountRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -657,7 +679,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

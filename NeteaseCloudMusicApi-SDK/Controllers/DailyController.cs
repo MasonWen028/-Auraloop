@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,9 +15,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
+
+        /// <summary>
+        /// User daily check-in, if type == 0, get 3 points, type == 1 2 point
+        /// </summary>
+        /// <param name="type">0 for android, 1 for web</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("daily/signin")]
-        public async Task<IActionResult> DailySignin()
+
+        [SwaggerOperation(summary: "User daily check-in")]
+        public async Task<IActionResult> DailySignin([FromQuery]int type)
         {
             try
             {
@@ -26,12 +35,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DailySigninRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Type = type
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

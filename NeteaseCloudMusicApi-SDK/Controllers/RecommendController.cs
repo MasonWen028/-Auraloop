@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,8 +15,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch daily recomended playlist
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("recommend/resource")]
+        [SwaggerOperation(
+            summary: "Fetch daily recomended playlist"
+        )]
         public async Task<IActionResult> RecommendResource()
         {
             try
@@ -23,15 +31,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/v1/discovery/recommend/resource",
-                    OptionType = "weapi",
-                    Data = new RecommendResourceRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,8 +43,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch daily recommended songs
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("recommend/songs")]
+        [SwaggerOperation(
+            summary: "Fetch daily recommended songs"
+        )]
         public async Task<IActionResult> RecommendSongs()
         {
             try
@@ -48,15 +60,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/v3/discovery/recommend/songs",
-                    OptionType = "weapi",
-                    Data = new RecommendSongsRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -81,7 +89,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

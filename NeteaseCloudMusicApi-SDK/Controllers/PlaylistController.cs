@@ -1,5 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using NeteaseCloudMusicApi_SDK.Models.Enums;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 
 namespace NeteaseCloudMusicApi_SDK.Controllers
@@ -14,8 +20,25 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch playlist categories.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint retrieves a list of available playlist categories for filtering or browsing playlists.
+        /// </remarks>
+        /// <returns>
+        /// A list of playlist categories or an error response in case of failure.
+        /// </returns>
+        [HttpGet]
         [Route("playlist/catlist")]
+        [SwaggerOperation(
+            Summary = "Fetch Playlist Categories",
+            Description = "Retrieves a list of available playlist categories for filtering or browsing playlists.",
+            OperationId = "GetPlaylistCategories",
+            Tags = new[] { "Playlist", "Categories" }
+        )]
+        [SwaggerResponse(200, "Successfully retrieved playlist categories.", typeof(object))]
+        [SwaggerResponse(500, "An internal server error occurred.")]
         public async Task<IActionResult> PlaylistCatlist()
         {
             try
@@ -24,14 +47,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/playlist/catalogue",
                     OptionType = "weapi",
-                    Data = new PlaylistCatlistRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -56,7 +75,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -64,9 +83,27 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Create new play list
+        /// </summary>
+        /// <param name="requestModel">
+        /// name: playlist name
+        /// privacy: keep it secret or not, nullable
+        /// type: it's a normal, video or shared playlist, nullable
+        /// </param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("playlist/create")]
-        public async Task<IActionResult> PlaylistCreate()
+        [SwaggerOperation(
+            Summary = "Create playlist",
+            Description = "Create a playlist by name, privacy and its type",
+            OperationId = "CreatePlaylist",
+            Tags = new[] { "Playlist", "Create" }
+        )]
+        [SwaggerResponse(200, "Playlist created successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Parameters are missing or invalid.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> PlaylistCreate([FromQuery] PlaylistCreateRequestModel requestModel)
         {
             try
             {
@@ -74,14 +111,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/playlist/create",
                     OptionType = "weapi",
-                    Data = new PlaylistCreateRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = requestModel
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -89,9 +123,23 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
+        /// <summary>
+        /// Delete a playlist by its id
+        /// </summary>
+        /// <param name="id">the unique identifier of playlist</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("playlist/delete")]
-        public async Task<IActionResult> PlaylistDelete()
+        [SwaggerOperation(
+            summary: "Delete Playlist",
+            description: "Remove a playlist by its id",
+            OperationId = "DeletePlaylist",
+            Tags = new[] { "Playlist", "Delete" }
+        )]
+        [SwaggerResponse(200, "Playlist Deleted successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Parameters are missing or invalid.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> PlaylistDelete([FromQuery] string id)
         {
             try
             {
@@ -101,12 +149,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PlaylistDeleteRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Ids = "[" + id + "]"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -131,7 +179,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -139,9 +187,29 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetches the details of a playlist by its ID.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint retrieves the details of a playlist based on the provided playlist ID.
+        /// Additional optional parameters can be included in the request.
+        /// </remarks>
+        /// <param name="requestModel">The request model containing the playlist ID and other optional parameters.</param>
+        /// <response code="200">Returns the playlist details.</response>
+        /// <response code="400">If the request parameters are invalid.</response>
+        /// <response code="500">If an internal server error occurs.</response>
+        [HttpGet]
         [Route("playlist/detail")]
-        public async Task<IActionResult> PlaylistDetail()
+        [SwaggerOperation(
+            Summary = "Fetch Playlist Details",
+            Description = "Retrieves detailed information about a playlist based on the provided playlist ID and other optional parameters.",
+            OperationId = "GetPlaylistDetail",
+            Tags = new[] { "Playlist", "Details" }
+        )]
+        [SwaggerResponse(200, "Playlist details retrieved successfully.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Parameters are missing or invalid.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> PlaylistDetail([FromQuery] PlaylistDetailRequestModel requestModel)
         {
             try
             {
@@ -149,14 +217,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/v6/playlist/detail",
                     OptionType = "weapi",
-                    Data = new PlaylistDetailRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = requestModel
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -181,7 +246,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -206,7 +271,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -214,8 +279,25 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch high-quality playlist tags.
+        /// </summary>
+        /// <remarks>
+        /// This endpoint retrieves a list of high-quality playlist tags for filtering or categorizing playlists.
+        /// </remarks>
+        /// <returns>
+        /// A list of high-quality playlist tags or an error response in case of failure.
+        /// </returns>
+        [HttpGet]
         [Route("playlist/highquality/tags")]
+        [SwaggerOperation(
+            Summary = "Fetch High-Quality Playlist Tags",
+            Description = "Retrieves a list of high-quality playlist tags that can be used for filtering or categorizing playlists.",
+            OperationId = "GetHighQualityPlaylistTags",
+            Tags = new[] { "Playlist", "Tags" }
+        )]
+        [SwaggerResponse(200, "Successfully retrieved high-quality playlist tags.", typeof(object))]
+        [SwaggerResponse(500, "An internal server error occurred.")]
         public async Task<IActionResult> PlaylistHighqualityTags()
         {
             try
@@ -223,15 +305,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/playlist/highquality/tags",
-                    OptionType = "weapi",
-                    Data = new PlaylistHighqualityTagsRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -256,7 +334,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -281,7 +359,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -306,7 +384,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -331,7 +409,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -356,7 +434,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -381,7 +459,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -389,9 +467,24 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Publish a privacy playlist
+        /// </summary>
+        /// <param name="id">the unique indentifier of the targeted playlist</param>
+        /// <param name="privacy">publish it or keep it privacy, 0 publish</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("playlist/privacy")]
-        public async Task<IActionResult> PlaylistPrivacy()
+        [SwaggerOperation(
+            summary: "Publish a privacy playlist",
+            description: "Publish a privacy playlist",
+            OperationId = "PlaylistPrivacy",
+            Tags = new string[] { "Playlist", "Privacy" }
+        )]
+        [SwaggerResponse(200, "Published playlist successfully")]
+        [SwaggerResponse(500, "Errors occured")]
+        [SwaggerResponse(301, "Nedd Login")]
+        public async Task<IActionResult> PlaylistPrivacy([FromQuery] long id, [FromQuery] int privacy = 0)
         {
             try
             {
@@ -401,12 +494,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PlaylistPrivacyRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id,
+                        Privacy = privacy
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -414,24 +508,40 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Subscrible or unsubscrible a playlist
+        /// </summary>
+        /// <param name="id">the indentifier of the playlist</param>
+        /// <param name="subOpType">subcrible or unsubscrible, 1 for sub, others for unsub</param>
+        /// <returns></returns>
+        
+        [HttpGet]
         [Route("playlist/subscribe")]
-        public async Task<IActionResult> PlaylistSubscribe()
+        [SwaggerOperation(
+            summary: "Subscribe or unsubsribe a playlist",
+            description: "subscribe or unsubscribe a playlist by id, 1 for subscribe, others for unsubscribe",
+            OperationId = "PlaylistSub",
+            Tags =  new string[] { "Playlist", "Subscribe" }
+        )]
+        [SwaggerResponse(200, "Subscribe/unsubscribe successfully")]
+        public async Task<IActionResult> PlaylistSubscribe([FromQuery]long id, [FromQuery]SubOpType subOpType)
         {
             try
             {
+
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/playlist/${query.t}",
+                    ApiEndpoint = $"/api/playlist/{subOpType}",
                     OptionType = "weapi",
                     Data = new PlaylistSubscribeRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -456,7 +566,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -481,7 +591,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -489,9 +599,24 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Add or remove song from targeted playlist
+        /// </summary>
+        /// <param name="pid">the unique indentifier of play list</param>
+        /// <param name="tracks">track ids</param>
+        /// <param name="Optype">add|del</param>
+        /// <returns></returns>
         [HttpPost]
         [Route("playlist/tracks")]
-        public async Task<IActionResult> PlaylistTracks()
+        [SwaggerOperation(
+            summary: "Add/Remove song from playlist",
+            description: "Add/Remove a buntch of tracks from playlist",
+            OperationId = "PlaylistTracks",
+            Tags = new string[] { "Playlist", "Tracks" }
+        )]
+        [SwaggerResponse(200, "Operate successfuly")]
+        public async Task<IActionResult> PlaylistTracks([FromQuery]long pid, [FromQuery] long[] tracks, [FromQuery]Optype Optype = Optype.add)
         {
             try
             {
@@ -501,12 +626,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PlaylistTracksRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Op = Optype.ToString(),
+                        Pid = pid,
+                        TrackIds = JsonConvert.SerializeObject(tracks),
+                        Imme = "true"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -531,7 +659,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -539,9 +667,25 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch all tracks from a specific playlist with pagination.
+        /// </summary>
+        /// <param name="Id">The unique identifier of the playlist.</param>
+        /// <param name="Limit">The maximum number of tracks to return. Default is 50.</param>
+        /// <param name="Offset">The number of tracks to skip before starting to collect the result set. Default is 0.</param>
+        /// <returns>A paginated list of tracks from the specified playlist or an error response if the operation fails.</returns>
+        [HttpGet]
         [Route("playlist/track/all")]
-        public async Task<IActionResult> PlaylistTrackAll()
+        [SwaggerOperation(
+            Summary = "Fetch Playlist Tracks",
+            Description = "Retrieves a paginated list of tracks from a playlist by its ID. Supports pagination using the `Limit` and `Offset` parameters.",
+            OperationId = "GetPlaylistTracks",
+            Tags = new[] { "Playlist", "Tracks" }
+        )]
+        [SwaggerResponse(200, "Successfully retrieved the tracks from the playlist.", typeof(object))]
+        [SwaggerResponse(400, "Failed to fetch playlist details due to invalid parameters or other issues.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> PlaylistTrackAll([FromQuery]long Id, [FromQuery]int Limit = 50, [FromQuery]int Offset = 0)
         {
             try
             {
@@ -551,12 +695,40 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PlaylistTrackAllRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = Id,
+                        N = 100000,
+                        S = 8
                     }
                 };
 
+                // Step 1: Get all song id from server
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+
+                if (result.status != 200)
+                {
+                    // Explicit handling for known failure case
+                    return BadRequest(new { Message = "Failed to fetch playlist details.", Status = result.status });
+                }
+
+                var resData = JObject.Parse(result.body);
+                var trackIds = resData["playlist"]["trackIds"];
+                var slicedIds = trackIds
+                    .Skip(Offset) // Skip to the offset
+                    .Take(Limit) // Take only the limit
+                    .Select(item => new { id = item["id"] }) // Map to anonymous objects
+                    .ToList();
+
+                var sondRequestData = new { c = JsonConvert.SerializeObject(slicedIds.ToArray()) };
+
+                var songApiModel = new ApiModel()
+                {
+                    ApiEndpoint = "/api/v3/song/detail",
+                    Data = sondRequestData,
+                    OptionType = "weapi"
+                };
+                var songRes = await _genericService.HandleRequestAsync(songApiModel);
+
+                return Ok(songRes.body);
             }
             catch (Exception ex)
             {
@@ -581,7 +753,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -589,9 +761,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
+        //TODO Edit the playlist
         [HttpPost]
         [Route("playlist/update")]
-        public async Task<IActionResult> PlaylistUpdate()
+        public async Task<IActionResult> PlaylistUpdate([FromQuery]long id, [FromQuery]string name, [FromQuery] string[]? tags, [FromQuery] string desc = "")
         {
             try
             {
@@ -606,7 +779,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -631,7 +804,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -656,7 +829,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

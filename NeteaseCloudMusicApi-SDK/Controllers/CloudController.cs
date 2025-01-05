@@ -112,7 +112,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -250,7 +250,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
             var tokenResponse = await _genericService.HandleRequestAsync(tokenApiModel);
             //TODO get ResourceId and UploadUrl
-            var tokenRes = JsonConvert.DeserializeObject<TokenResponse>(tokenResponse.data);
+            var tokenRes = JsonConvert.DeserializeObject<TokenResponse>(tokenResponse.body);
 
             return (tokenRes.Result.Token, tokenRes.Result.ObjectKey, tokenRes.Result.ResourceId, tokenRes.Result.Bucket);
 
@@ -286,7 +286,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
 
             var checkResponse = await _genericService.HandleRequestAsync(checkApiModel);
-            var checkRes = JsonConvert.DeserializeObject<CheckResponse>(checkResponse.data);
+            var checkRes = JsonConvert.DeserializeObject<CheckResponse>(checkResponse.body);
 
             return checkRes == null ? false : checkRes.NeedUpload;
         }
@@ -309,7 +309,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -336,7 +336,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

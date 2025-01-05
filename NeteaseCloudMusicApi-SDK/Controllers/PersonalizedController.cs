@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,9 +15,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch personalized recommended playlist
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="total"></param>
+        /// <param name="n"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("personalized")]
-        public async Task<IActionResult> Personalized()
+        [SwaggerOperation( summary: "Fetch personalized recommended playlist")]
+        public async Task<IActionResult> Personalized([FromQuery]int limit = 30, [FromQuery]bool total = true, [FromQuery]int n = 1000)
         {
             try
             {
@@ -26,12 +36,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PersonalizedRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Total = total,
+                        N = n
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,8 +51,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch recommended Radio program
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("personalized/djprogram")]
+        [SwaggerOperation(summary: "Fetch recommended Radio program")]
         public async Task<IActionResult> PersonalizedDjprogram()
         {
             try
@@ -48,15 +65,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/personalized/djprogram",
-                    OptionType = "weapi",
-                    Data = new PersonalizedDjprogramRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -64,8 +77,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch recommended MV
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("personalized/mv")]
+        [SwaggerOperation(summary: "Fetch recommended MV")]
         public async Task<IActionResult> PersonalizedMv()
         {
             try
@@ -74,14 +92,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/personalized/mv",
                     OptionType = "weapi",
-                    Data = new PersonalizedMvRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -89,9 +103,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch personalized new song with pagination
+        /// </summary>
+        /// <param name="limit">page size</param>
+        /// <param name="areaId">country code, could get by interface /countries/code/list</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("personalized/newsong")]
-        public async Task<IActionResult> PersonalizedNewsong()
+        public async Task<IActionResult> PersonalizedNewsong([FromQuery]int limit = 10, [FromQuery]int areaId = 0)
         {
             try
             {
@@ -101,12 +121,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PersonalizedNewsongRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        AreaId = areaId,
+                        Type = "recommend"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,8 +136,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch exlusive broadcast content
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("personalized/privatecontent")]
+        [SwaggerOperation(summary: "Fetch exlusive broadcast content")]
         public async Task<IActionResult> PersonalizedPrivatecontent()
         {
             try
@@ -123,15 +151,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/personalized/privatecontent",
-                    OptionType = "weapi",
-                    Data = new PersonalizedPrivatecontentRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -139,9 +163,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch exlusive broadcast list
+        /// </summary>
+        /// <param name="limit">page size</param>
+        /// <param name="offset">page number</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("personalized/privatecontent/list")]
-        public async Task<IActionResult> PersonalizedPrivatecontentList()
+        [SwaggerOperation(summary: "Fetch exlusive broadcast list")]
+        public async Task<IActionResult> PersonalizedPrivatecontentList([FromQuery]int limit = 60, [FromQuery]int offset = 0)
         {
             try
             {
@@ -151,12 +183,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new PersonalizedPrivatecontentListRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = "true"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

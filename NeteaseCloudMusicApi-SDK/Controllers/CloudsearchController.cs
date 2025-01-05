@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -14,9 +15,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Seach data
+        /// </summary>
+        /// <param name="keywords">Searching keywords</param>
+        /// <param name="limit">page size</param>
+        /// <param name="offset">page no</param>
+        /// <param name="type">Searching type</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("cloudsearch")]
-        public async Task<IActionResult> Cloudsearch()
+        [SwaggerOperation(summary: "Seach data")]
+        public async Task<IActionResult> Cloudsearch([FromQuery]string keywords, [FromQuery]int limit = 50, [FromQuery]int offset = 0, [FromQuery]SearchTypes type = SearchTypes.All)
         {
             try
             {
@@ -26,12 +36,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new CloudsearchRequestModel()
                     {
-                        // Replace with actual data if needed
+                        S = keywords,
+                        Limit = limit,
+                        Offset = offset,
+                        Total = true,
+                        Type = type
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

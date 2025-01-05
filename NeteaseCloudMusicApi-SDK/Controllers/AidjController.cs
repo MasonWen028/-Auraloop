@@ -14,7 +14,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             _genericService = genericService;
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch personalized dj list
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("aidj/content/rcmd")]
         public async Task<IActionResult> AidjContentRcmd([FromBody]ExtInfo requestModel)
         {
@@ -23,15 +28,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/aidj/content/rcmd/info",
-                    OptionType = "weapi",
-                    Data = new AidjContentRcmdRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

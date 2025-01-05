@@ -10,3 +10,10 @@ public class DjToplistRequestModel
     [JsonProperty("type")]
     public string Type { get; set; }
 }
+
+
+public enum ListType
+{
+    @new = 0, // new list
+    hot = 1   // hot list
+}

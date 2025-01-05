@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,9 +40,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fecth the details of Video
+        /// </summary>
+        /// <param name="id">video id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("video/detail")]
-        public async Task<IActionResult> VideoDetail()
+        [SwaggerOperation(summary: "Fecth the details of Video")]
+        public async Task<IActionResult> VideoDetail([FromQuery]long id)
         {
             try
             {
@@ -51,12 +58,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new VideoDetailRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -64,24 +71,30 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch count of like, forward and comment
+        /// </summary>
+        /// <param name="vid"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("video/detail/info")]
-        public async Task<IActionResult> VideoDetailInfo()
+        [SwaggerOperation(summary: "Fetch count of like, forward and comment")]
+        public async Task<IActionResult> VideoDetailInfo([FromQuery]long vid)
         {
             try
             {
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "R_VI_62_${query.vid}",
+                    ApiEndpoint = "/api/comment/commentthread/info",
                     OptionType = "weapi",
                     Data = new VideoDetailInfoRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Threadid = $"R_VI_62_{vid}"
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -106,7 +119,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -131,7 +144,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -156,7 +169,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -181,7 +194,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -206,7 +219,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -214,9 +227,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch the url of video
+        /// </summary>
+        /// <param name="id">Video id</param>
+        /// <param name="r">resolution of video</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("video/url")]
-        public async Task<IActionResult> VideoUrl()
+        [SwaggerOperation(summary: "Fetch the url of video")]
+        public async Task<IActionResult> VideoUrl([FromQuery]long id, [FromQuery]int r = 1080)
         {
             try
             {
@@ -226,12 +246,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new VideoUrlRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Ids = $"[{id}]",
+                        Resolution = r
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

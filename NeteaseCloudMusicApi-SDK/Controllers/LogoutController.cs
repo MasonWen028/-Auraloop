@@ -34,9 +34,6 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
         )]
         [SwaggerResponse(200, "Successfully logged out.", typeof(object))]
         [SwaggerResponse(500, "Internal server error.")]
-
-        [HttpGet]
-        [Route("logout")]
         public async Task<IActionResult> Logout()
         {
             try
@@ -52,7 +49,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

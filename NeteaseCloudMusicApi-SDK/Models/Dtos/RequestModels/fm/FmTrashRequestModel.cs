@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 public class FmTrashRequestModel
 {
     [JsonProperty("songId")]
-    public string SongId { get; set; }
+    public long SongId { get; set; }
     [JsonProperty("alg")]
     public string Alg { get; set; }
     [JsonProperty("time")]

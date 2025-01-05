@@ -5,7 +5,7 @@ import { getCookie } from "./cookie";
 import { isLogin } from "./auth";
 
 // 全局地址
-const baseURL: string = "http://localhost:3000/";
+const baseURL: string = "https://localhost:7007/"; //https://localhost:7007/  http://localhost:3000/
 
 //String(isDev ? "/api/netease" : import.meta.env["VITE_API_URL"]);
 
@@ -27,7 +27,8 @@ server.interceptors.request.use(
     // Cookie
     if (!request.params.noCookie && (isLogin() || getCookie("MUSIC_U") !== null)) {
       const cookie = `MUSIC_U=${getCookie("MUSIC_U")};`;
-      request.params.cookie = encodeURIComponent(cookie);
+      //request.params.cookie = encodeURIComponent(cookie);
+      request.headers.Authorization = cookie;
     }
     // realIP
     if (!isElectron && !request.url?.includes("/login")) {

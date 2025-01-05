@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,9 +40,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch lyric corresponding to song
+        /// </summary>
+        /// <param name="id">song id</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("lyric/new")]
-        public async Task<IActionResult> LyricNew()
+        [SwaggerOperation(summary: "Fetch lyric corresponding to song")]
+        public async Task<IActionResult> LyricNew([FromQuery]long id)
         {
             try
             {
@@ -51,12 +58,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new LyricNewRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -56,7 +57,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -64,7 +65,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch recommended category
+        /// </summary>
+        /// <returns></returns>
+        [SwaggerOperation(
+            summary: "Fetch recommended category"
+        )]
+        [HttpGet]
         [Route("dj/category/recommend")]
         public async Task<IActionResult> DjCategoryRecommend()
         {
@@ -74,14 +82,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/djradio/home/category/recommend",
                     OptionType = "weapi",
-                    Data = new DjCategoryRecommendRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -89,8 +93,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch catelist of dj
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/catelist")]
+        [SwaggerOperation(
+            summary: "Fetch the catelist of dj",
+            description: "Fetch the catelist of dj"
+        )]
         public async Task<IActionResult> DjCatelist()
         {
             try
@@ -98,15 +111,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 var apiModel = new ApiModel
                 {
                     ApiEndpoint = "/api/djradio/category/get",
-                    OptionType = "weapi",
-                    Data = new DjCatelistRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    OptionType = "weapi"
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,9 +123,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch detailed information of dj corresponding to the dj id
+        /// </summary>
+        /// <param name="rid">the identifier of dj</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/detail")]
-        public async Task<IActionResult> DjDetail()
+        [SwaggerOperation(
+            summary: " Fetch detailed information of dj corresponding to the dj id"
+         )]
+        public async Task<IActionResult> DjDetail([FromQuery]long rid)
         {
             try
             {
@@ -126,12 +143,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjDetailRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = rid
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -156,7 +173,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -181,7 +198,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -189,7 +206,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch the personalized recommendation of dj list
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/personalize/recommend")]
         public async Task<IActionResult> DjPersonalizeRecommend()
         {
@@ -199,14 +220,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/djradio/personalize/rcmd",
                     OptionType = "weapi",
-                    Data = new DjPersonalizeRecommendRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -214,9 +231,19 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch all programs of dj by id, limit, and offset
+        /// </summary>
+        /// <param name="rid">the identifier of dj</param>
+        /// <param name="limit">size</param>
+        /// <param name="offset">start position</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/program")]
-        public async Task<IActionResult> DjProgram()
+        [SwaggerOperation(
+            summary: "Fetch all programs of dj by id, limit, and offset"
+        )]
+        public async Task<IActionResult> DjProgram([FromQuery]long rid, [FromQuery]int limit = 50, [FromQuery]int offset = 0, [FromQuery]bool asc = false)
         {
             try
             {
@@ -226,12 +253,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjProgramRequestModel()
                     {
-                        // Replace with actual data if needed
+                        RadioId = rid,
+                        Asc = asc,
+                        Limit = limit,
+                        Offset = offset
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -239,9 +269,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch the detailed information of targeted dj
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/program/detail")]
-        public async Task<IActionResult> DjProgramDetail()
+        [SwaggerOperation(
+            summary: "Fetch the detailed information of targeted dj"
+        )]
+        public async Task<IActionResult> DjProgramDetail([FromQuery]long id)
         {
             try
             {
@@ -251,12 +290,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjProgramDetailRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = id
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -281,7 +320,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -306,7 +345,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -314,9 +353,20 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch the top dj lists by category
+        /// </summary>
+        /// <param name="cateId">the identifier of targeted category</param>
+        /// <param name="limit">size</param>
+        /// <param name="offset">start position</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/radio/hot")]
-        public async Task<IActionResult> DjRadioHot()
+        [SwaggerOperation(
+            summary: "Fetch the top dj lists by category"
+        )]
+        public async Task<IActionResult> DjRadioHot([FromQuery]long cateId, [FromQuery]int limit = 50, [FromQuery]int offset = 0)
         {
             try
             {
@@ -326,12 +376,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjRadioHotRequestModel()
                     {
-                        // Replace with actual data if needed
+                        CateId = cateId,
+                        Limit = limit,
+                        Offset = offset
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -339,8 +391,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch recommended dj list
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/recommend")]
+        [SwaggerOperation(
+            summary: "Fetch recommended dj list"
+        )]
         public async Task<IActionResult> DjRecommend()
         {
             try
@@ -349,14 +408,10 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/djradio/recommend/v1",
                     OptionType = "weapi",
-                    Data = new DjRecommendRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -364,9 +419,17 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch the type corresponding to the dj by cateId
+        /// </summary>
+        /// <param name="cateId">the identifier of category</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/recommend/type")]
-        public async Task<IActionResult> DjRecommendType()
+        [SwaggerOperation(
+            summary: "Fetch the type corresponding to the dj by cateId"
+        )]
+        public async Task<IActionResult> DjRecommendType([FromQuery]long cateId)
         {
             try
             {
@@ -376,12 +439,12 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjRecommendTypeRequestModel()
                     {
-                        // Replace with actual data if needed
+                        CateId = cateId
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -389,24 +452,35 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// subscribe or unsubscribe dj
+        /// </summary>
+        /// <param name="rid">the idenfifier of dj</param>
+        /// <param name="subOpType">1 for subscribe, 0 for unsubscribe</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/sub")]
-        public async Task<IActionResult> DjSub()
+        [SwaggerOperation(
+            summary: "subscribe or unsubscribe dj"
+        )]
+        public async Task<IActionResult> DjSub([FromQuery]long rid, [FromQuery]SubOpType subOpType = SubOpType.subscribe)
         {
             try
             {
+                string subOptype = subOpType == SubOpType.subscribe ? "sub" : "unsub";
                 var apiModel = new ApiModel
                 {
-                    ApiEndpoint = "/api/djradio/${query.t}",
+                    ApiEndpoint = $"/api/djradio/{subOptype}",
                     OptionType = "weapi",
                     Data = new DjSubRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Id = rid
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -414,9 +488,16 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch broadcasts subscribed by user with pagination
+        /// </summary>
+        /// <param name="limit"></param>
+        /// <param name="offset"></param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/sublist")]
-        public async Task<IActionResult> DjSublist()
+        [SwaggerOperation(summary: "Fetch broadcasts subscribed by user")]
+        public async Task<IActionResult> DjSublist([FromQuery] int limit = 50, [FromQuery] int offset = 0)
         {
             try
             {
@@ -426,12 +507,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjSublistRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Total = true
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -456,7 +539,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -481,7 +564,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -489,9 +572,19 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch new/hot DJ list
+        /// </summary>
+        /// <param name="listType">new / hot</param>
+        /// <param name="limit">size of data</param>
+        /// <param name="offset">starting position</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("dj/toplist")]
-        public async Task<IActionResult> DjToplist()
+        [SwaggerOperation(
+            summary: "Fetch new/hot DJ list"
+        )]
+        public async Task<IActionResult> DjToplist([FromQuery]ListType listType, [FromQuery]int limit = 20, [FromQuery]int offset = 0)
         {
             try
             {
@@ -501,12 +594,14 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new DjToplistRequestModel()
                     {
-                        // Replace with actual data if needed
+                        Limit = limit,
+                        Offset = offset,
+                        Type = listType.ToString()
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -531,7 +626,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -556,7 +651,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -581,7 +676,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -606,7 +701,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

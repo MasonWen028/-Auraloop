@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 public class UserPlaylistRequestModel
 {
     [JsonProperty("uid")]
-    public string Uid { get; set; }
+    public long Uid { get; set; }
     [JsonProperty("limit")]
     public int Limit { get; set; }
     [JsonProperty("offset")]

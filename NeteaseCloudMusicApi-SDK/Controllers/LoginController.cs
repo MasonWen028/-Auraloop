@@ -35,7 +35,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -94,13 +94,13 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
 
-                var jsonObject = JObject.Parse(result.data);
+                var jsonObject = JObject.Parse(result.body);
 
                 int code = (int)jsonObject["code"];
 
                 if (code == 200) // TODO get the code inside the data out, use it for conditional checks
                 {
-                    var jsonString = result.data;
+                    var jsonString = result.body;
                     jsonString = jsonString.Replace("avatarImgId_str", "avatarImgIdStr");
                     var modifiedBody = JsonConvert.DeserializeObject<dynamic>(jsonString);
 
@@ -120,7 +120,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                         cookie = result.cookie
                     });
                 }
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -166,7 +166,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     status = 200,
                     body = new
                     {
-                        result.data,
+                        result.body,
                         cookie = string.Join(";", result.cookie) 
                     },
                     cookie = result.cookie
@@ -283,7 +283,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+
+                var uniKey = JObject.Parse(result.body)["unikey"].ToString();
+
+                return Ok(new 
+                {
+                    status = result.status,
+                    data = new {
+                        code = 200,
+                        unikey = uniKey
+                    },
+                    cookie = result.cookie
+                });
             }
             catch (Exception ex)
             {
@@ -309,7 +320,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
 
-                var jsonObject = JObject.Parse(result.data);
+                var jsonObject = JObject.Parse(result.body);
 
                 int code = (int)jsonObject["code"];
 
@@ -321,7 +332,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                         status = 200, // Set the HTTP status
                         body = new
                         {
-                            data = result.data // Spread the original `body` into the `data` field
+                            data = result.body // Spread the original `body` into the `data` field
                         },
                         cookie = result.cookie // Include the original cookies
                     };
@@ -329,7 +340,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     return Ok(updatedResult);
                 }
 
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -355,7 +366,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
 
-                var jsonObject = JObject.Parse(result.data);
+                var jsonObject = JObject.Parse(result.body);
 
                 int code = (int)jsonObject["code"];
 
@@ -367,7 +378,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                         status = 200, // Set the HTTP status
                         body = new
                         {
-                            data = result.data // Spread the original `body` into the `data` field
+                            data = result.body // Spread the original `body` into the `data` field
                         },
                         cookie = result.cookie // Include the original cookies
                     };
@@ -376,7 +387,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 }
 
 
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

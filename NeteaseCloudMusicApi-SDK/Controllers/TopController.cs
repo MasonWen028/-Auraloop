@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 using System.Threading.Tasks;
 
@@ -31,7 +32,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -39,9 +40,18 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+
+        /// <summary>
+        /// Fetch top songs by Area with pagination
+        /// </summary>
+        /// <param name="areaId">All = 0, Chinese = 7, Western = 96, Korean = 16, Japanese = 8</param>
+        /// <param name="limit">page size</param>
+        /// <param name="offset">page number</param>
+        /// <returns></returns>
+        [HttpGet]
         [Route("top/artists")]
-        public async Task<IActionResult> TopArtists()
+        [SwaggerOperation(summary: "Fetch top songs by Area with pagination")]
+        public async Task<IActionResult> TopArtists([FromQuery]MusicRegion areaId = MusicRegion.All, [FromQuery]int limit = 100, [FromQuery]int offset = 0)
         {
             try
             {
@@ -51,12 +61,15 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                     OptionType = "weapi",
                     Data = new TopArtistsRequestModel()
                     {
-                        // Replace with actual data if needed
+                        AreaId = areaId,
+                        Limit = limit,
+                        Offset = offset,
+                        Total = true
                     }
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -81,7 +94,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -106,7 +119,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -114,9 +127,32 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch High-Quality Top Playlists
+        /// </summary>
+        /// <remarks>
+        /// This endpoint retrieves a list of top playlists based on the specified parameters.
+        /// It supports filtering by category (`cat`), setting the maximum number of playlists to retrieve (`limit`),
+        /// and specifying an offset for pagination (`offset`).
+        /// </remarks>
+        /// <param name="requestModel">
+        /// The request model containing query parameters such as category, limit, and offset.
+        /// </param>
+        /// <returns>
+        /// A list of top playlists or an error response in case of failure.
+        /// </returns>
+        [HttpGet]
         [Route("top/playlist")]
-        public async Task<IActionResult> TopPlaylist()
+        [SwaggerOperation(
+            Summary = "Fetch Top Playlists",
+            Description = "Retrieves a list of top playlists based on category, limit, and pagination offset.",
+            OperationId = "GetTopPlaylists",
+            Tags = new[] { "Playlist",  "Top" }
+        )]
+        [SwaggerResponse(200, "Successfully retrieved high-quality top playlists.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Missing or incorrect parameters.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> TopPlaylist([FromQuery] TopPlaylistHighqualityRequestModel requestModel)
         {
             try
             {
@@ -124,14 +160,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/playlist/list",
                     OptionType = "weapi",
-                    Data = new TopPlaylistRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = requestModel
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -139,9 +172,32 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
             }
         }
 
-        [HttpPost]
+        /// <summary>
+        /// Fetch High-Quality Top Playlists
+        /// </summary>
+        /// <remarks>
+        /// This endpoint retrieves a list of high-quality top playlists based on the specified parameters.
+        /// It supports filtering by category (`cat`), setting the maximum number of playlists to retrieve (`limit`),
+        /// and specifying an offset for pagination (`offset`).
+        /// </remarks>
+        /// <param name="requestModel">
+        /// The request model containing query parameters such as category, limit, and offset.
+        /// </param>
+        /// <returns>
+        /// A list of high-quality top playlists or an error response in case of failure.
+        /// </returns>
+        [HttpGet]
         [Route("top/playlist/highquality")]
-        public async Task<IActionResult> TopPlaylistHighquality()
+        [SwaggerOperation(
+            Summary = "Fetch High-Quality Top Playlists",
+            Description = "Retrieves a list of high-quality top playlists based on category, limit, and pagination offset.",
+            OperationId = "GetHighQualityTopPlaylists",
+            Tags = new[] { "Playlist", "HighQuality", "Top" }
+        )]
+        [SwaggerResponse(200, "Successfully retrieved high-quality top playlists.", typeof(object))]
+        [SwaggerResponse(400, "Invalid request. Missing or incorrect parameters.")]
+        [SwaggerResponse(500, "An internal server error occurred.")]
+        public async Task<IActionResult> TopPlaylistHighquality([FromQuery] TopPlaylistHighqualityRequestModel requestModel)
         {
             try
             {
@@ -149,14 +205,11 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 {
                     ApiEndpoint = "/api/playlist/highquality/list",
                     OptionType = "weapi",
-                    Data = new TopPlaylistHighqualityRequestModel()
-                    {
-                        // Replace with actual data if needed
-                    }
+                    Data = requestModel
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {
@@ -181,7 +234,7 @@ namespace NeteaseCloudMusicApi_SDK.Controllers
                 };
 
                 var result = await _genericService.HandleRequestAsync(apiModel);
-                return Ok(result.data);
+                return Ok(result.body);
             }
             catch (Exception ex)
             {

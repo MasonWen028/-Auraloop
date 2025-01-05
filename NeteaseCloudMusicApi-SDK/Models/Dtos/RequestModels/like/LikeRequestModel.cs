@@ -4,11 +4,11 @@ using Newtonsoft.Json;
 public class LikeRequestModel
 {
     [JsonProperty("alg")]
-    public string Alg { get; set; }
+    public string Alg { get; set; } = "itembased";
     [JsonProperty("trackId")]
-    public string TrackId { get; set; }
+    public long TrackId { get; set; }
     [JsonProperty("like")]
-    public string Like { get; set; }
+    public bool Like { get; set; }
     [JsonProperty("time")]
-    public long Time { get; set; }
+    public string Time { get; set; } = "3";
 }
