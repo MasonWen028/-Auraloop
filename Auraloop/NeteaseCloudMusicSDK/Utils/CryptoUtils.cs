@@ -170,41 +170,114 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
         /// </example>
         private static RSA ImportPublicKey(string pem)
         {
-            var rsa = new RSACryptoServiceProvider();
-            var publicKeyBytes = GetBytesFromPem(pem, "PUBLIC KEY");
+            byte[] seqOid = { 0x30, 0x0D, 0x06, 0x09, 0x2A, 0x86, 0x48, 0x86, 0xF7, 0x0D, 0x01, 0x01, 0x01, 0x05, 0x00 };
+            byte[] seq = new byte[15];
 
-            var rsaParameters = new RSAParameters();
-            using (var ms = new MemoryStream(publicKeyBytes))
+            var x509Key = GetBytesFromPem(pem, "PUBLIC KEY");
+
+            // ---------  Set up stream to read the asn.1 encoded SubjectPublicKeyInfo blob  ------
+            using (MemoryStream mem = new MemoryStream(x509Key))
             {
-                using (var br = new BinaryReader(ms))
+                using (BinaryReader binr = new BinaryReader(mem))  //wrap Memory Stream with BinaryReader for easy reading
                 {
-                    if (br.ReadByte() == 0x30) // ASN.1 SEQUENCE
+                    byte bt = 0;
+                    ushort twobytes = 0;
+
+                    twobytes = binr.ReadUInt16();
+                    if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
+                        binr.ReadByte();    //advance 1 byte
+                    else if (twobytes == 0x8230)
+                        binr.ReadInt16();   //advance 2 bytes
+                    else
+                        return null;
+
+                    seq = binr.ReadBytes(15);       //read the Sequence OID
+                    if (!CompareBytearrays(seq, seqOid))    //make sure Sequence for OID is correct
+                        return null;
+
+                    twobytes = binr.ReadUInt16();
+                    if (twobytes == 0x8103) //data read as little endian order (actual data order for Bit String is 03 81)
+                        binr.ReadByte();    //advance 1 byte
+                    else if (twobytes == 0x8203)
+                        binr.ReadInt16();   //advance 2 bytes
+                    else
+                        return null;
+
+                    bt = binr.ReadByte();
+                    if (bt != 0x00)     //expect null byte next
+                        return null;
+
+                    twobytes = binr.ReadUInt16();
+                    if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
+                        binr.ReadByte();    //advance 1 byte
+                    else if (twobytes == 0x8230)
+                        binr.ReadInt16();   //advance 2 bytes
+                    else
+                        return null;
+
+                    twobytes = binr.ReadUInt16();
+                    byte lowbyte = 0x00;
+                    byte highbyte = 0x00;
+
+                    if (twobytes == 0x8102) //data read as little endian order (actual data order for Integer is 02 81)
+                        lowbyte = binr.ReadByte();  // read next bytes which is bytes in modulus
+                    else if (twobytes == 0x8202)
                     {
-                        // Skip ASN.1 data (sequence length, algorithm identifier, etc.)
-                        br.ReadBytes(15);
-
-                        // Read the modulus
-                        if (br.ReadByte() == 0x02) // INTEGER
-                        {
-                            var modulusLength = br.ReadByte();
-                            rsaParameters.Modulus = br.ReadBytes(modulusLength);
-                        }
-
-                        // Read the exponent
-                        if (br.ReadByte() == 0x02) // INTEGER
-                        {
-                            var exponentLength = br.ReadByte();
-                            rsaParameters.Exponent = br.ReadBytes(exponentLength);
-                        }
+                        highbyte = binr.ReadByte(); //advance 2 bytes
+                        lowbyte = binr.ReadByte();
                     }
+                    else
+                        return null;
+                    byte[] modint = { lowbyte, highbyte, 0x00, 0x00 };   //reverse byte order since asn.1 key uses big endian order
+                    int modsize = BitConverter.ToInt32(modint, 0);
+
+                    int firstbyte = binr.PeekChar();
+                    if (firstbyte == 0x00)
+                    {   //if first byte (highest order) of modulus is zero, don't include it
+                        binr.ReadByte();    //skip this null byte
+                        modsize -= 1;   //reduce modulus buffer size by 1
+                    }
+
+                    byte[] modulus = binr.ReadBytes(modsize);   //read the modulus bytes
+
+                    if (binr.ReadByte() != 0x02)            //expect an Integer for the exponent data
+                        return null;
+                    int expbytes = (int)binr.ReadByte();        // should only need one byte for actual exponent data (for all useful values)
+                    byte[] exponent = binr.ReadBytes(expbytes);
+
+                    // ------- create RSACryptoServiceProvider instance and initialize with public key -----
+                    var rsa = RSA.Create();
+                    RSAParameters rsaKeyInfo = new RSAParameters
+                    {
+                        Modulus = modulus,
+                        Exponent = exponent
+                    };
+                    rsa.ImportParameters(rsaKeyInfo);
+
+                    return rsa;
                 }
             }
-
-            rsa.ImportParameters(rsaParameters);
-            return rsa;
         }
 
-
+        /// <summary>
+        /// Compare 2 byte arraies
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        /// <returns></returns>
+        private static bool CompareBytearrays(byte[] a, byte[] b)
+        {
+            if (a.Length != b.Length)
+                return false;
+            int i = 0;
+            foreach (byte c in a)
+            {
+                if (c != b[i])
+                    return false;
+                i++;
+            }
+            return true;
+        }
 
         /// <summary>
         /// Encrypts a string using RSA with the specified public key.
@@ -275,6 +348,32 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
             {
                 @params = AesEncrypt(encryptedData, "ecb", eapiKey, "", "hex")
             };
+        }
+
+
+        /// <summary>
+        /// Decrypt response string
+        /// </summary>
+        /// <param name="encryptedString"></param>
+        /// <returns></returns>
+        public static string EapiResDecrypt(string encryptedString)
+        {
+            string str = ConvertToBase64(encryptedString);
+            return AesDecrypt(str, eapiKey, "");
+        }
+
+        /// <summary>
+        /// Convert a string into base64 format
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        private static string ConvertToBase64(string input)
+        {
+            // Convert the input string to a byte array
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // Convert the byte array to a Base64 string
+            return Convert.ToBase64String(inputBytes);
         }
 
     }

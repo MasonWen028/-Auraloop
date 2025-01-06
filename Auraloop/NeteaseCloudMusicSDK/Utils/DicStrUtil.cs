@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
@@ -60,7 +61,7 @@ namespace NeteaseCloudMusicSDK.Utils
         /// </summary>
         /// <param name="dictionary"></param>
         /// <returns></returns>
-        public static string DictionaryToString(Dictionary<string, string> dictionary)
+        public static string DictionaryToString(this Dictionary<string, string> dictionary)
         {
             var parts = new List<string>();
 
@@ -77,7 +78,7 @@ namespace NeteaseCloudMusicSDK.Utils
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public static string ConvertToQueryString(this object obj)
+        public static string ConvertToQueryString(object obj)
         {
             var queryString = HttpUtility.ParseQueryString(string.Empty);
 

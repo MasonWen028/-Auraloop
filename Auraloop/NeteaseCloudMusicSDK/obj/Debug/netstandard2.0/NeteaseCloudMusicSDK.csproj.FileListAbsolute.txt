@@ -1,0 +1,11 @@
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.csproj.AssemblyReference.cache
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.GeneratedMSBuildEditorConfig.editorconfig
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.AssemblyInfoInputs.cache
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.AssemblyInfo.cs
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.csproj.CoreCompileInputs.cache
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.sourcelink.json
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\bin\Debug\netstandard2.0\NeteaseCloudMusicSDK.deps.json
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\bin\Debug\netstandard2.0\NeteaseCloudMusicSDK.dll
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\bin\Debug\netstandard2.0\NeteaseCloudMusicSDK.pdb
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.dll
+H:\Projects\Auraloop\Auraloop\NeteaseCloudMusicSDK\obj\Debug\netstandard2.0\NeteaseCloudMusicSDK.pdb

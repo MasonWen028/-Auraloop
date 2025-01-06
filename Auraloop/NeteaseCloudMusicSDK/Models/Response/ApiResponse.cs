@@ -22,6 +22,12 @@ namespace NeteaseCloudMusicSDK.Models.Response
         public Object Data { get; set; }
 
         /// <summary>
+        /// if the response set the cookie, return it to request
+        /// </summary>
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string Cookie { get; set; }
+
+        /// <summary>
         /// An error message or reason for failure (if applicable).
         /// </summary>
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]

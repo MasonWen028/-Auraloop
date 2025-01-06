@@ -57,6 +57,18 @@ public interface {interfaceName}
 
     static void Main(string[] args)
     {
+
+        string sourceFolder = "H:\\Projects\\Auraloop\\NeteaseCloudMusicApi-SDK\\Controllers"; // Replace with your controllers' folder
+        string targetFolder = @"GeneratedInterfaces"; // Replace with target folder for interfaces
+
+        if (!Directory.Exists(targetFolder))
+        {
+            Directory.CreateDirectory(targetFolder);
+        }
+
+        InterfaceGenerator.GenerateInterfaces(sourceFolder, targetFolder);
+
+
         var c = new ControllerGenerator("controllers", "NeteaseCloudMusicApi_SDK.Controllers");
 
         var jsFiles = Directory.GetFiles("H:\\Projects\\neteasecloudmusicapi\\module", "*.js", SearchOption.AllDirectories);

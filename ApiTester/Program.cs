@@ -10,11 +10,6 @@ namespace ApiTester
             Console.WriteLine("Hello, World!");
 
 
-            ProcessFiles("H:\\Projects\\neteasecloudmusicapi\\module", "output");
-
-
-
-
             Dictionary<string, string> query = new Dictionary<string, string>();
 
             string crypto = "";

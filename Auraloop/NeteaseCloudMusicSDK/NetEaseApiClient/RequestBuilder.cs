@@ -1,5 +1,6 @@
 ﻿using NeteaseCloudMusicApi_SDK.Helpers.Extensions;
 using NeteaseCloudMusicSDK.Configurations;
+using NeteaseCloudMusicSDK.NetEaseApiClient.Models;
 using NeteaseCloudMusicSDK.RequestClient.Models;
 using NeteaseCloudMusicSDK.Utils;
 using Newtonsoft.Json;
@@ -24,6 +25,43 @@ namespace NeteaseCloudMusicSDK.RequestClient
     /// </remarks>
     public class RequestBuilder
     {
+        private Dictionary<string, string> currentCookies = new Dictionary<string, string>();
+
+        public Dictionary<string, string> CurrentCookies 
+        {
+            get
+            {
+                return currentCookies;
+            }
+            set
+            {
+                currentCookies = value;
+            }
+        }
+
+        private RequestSetting setting;
+
+        public RequestSetting Setting
+        {
+            get { return setting; }
+            set { setting = value; }
+        }
+
+        /// <summary>
+        /// Create request for sending
+        /// </summary>
+        /// <param name="option"></param>
+        public RequestBuilder(RequestOptions option) 
+        {
+            object requestModel = option.RequestModel;
+            string uri = option.Uri;
+            string crypto = option.Crypto;
+            string cookie = option.Cookie;
+            string realIp = option.RealIp;
+            string ua = option.UserAgent;
+
+            setting = PrepareRequest(uri, requestModel, crypto, cookie, realIp, ua);
+        }
         /// <summary>
         /// load the default configuration
         /// </summary>
@@ -217,6 +255,8 @@ namespace NeteaseCloudMusicSDK.RequestClient
                 //cookieDic["MUSIC_A"] = cookieDic.GetValueOrDefault("MUSIC_A", AnonymousToken);
             }
 
+            currentCookies = cookieDic;
+
             return cookieDic;
         }
 
@@ -253,7 +293,7 @@ namespace NeteaseCloudMusicSDK.RequestClient
         /// // }
         /// </code>
         /// </example>
-        private Dictionary<string, string> PrepareHeaders(Dictionary<string, string> cookieDic, bool specialHeader, string realIp = "", string ua = "")
+        private Dictionary<string, string> PrepareHeaders(Dictionary<string, string> cookieDic, string crypto, string realIp = "", string ua = "")
         {
             var headers = new Dictionary<string, string>();
 
@@ -265,9 +305,9 @@ namespace NeteaseCloudMusicSDK.RequestClient
                 headers["X-Forwarded-For"] = realIp;
             }
 
-            headers["User-Agent"] = !string.IsNullOrEmpty(ua) ? ua : ChooseUserAgent("default");
+            headers["User-Agent"] = !string.IsNullOrEmpty(ua) ? ua : ChooseUserAgent(crypto);
 
-            if (specialHeader)
+            if (crypto == "eapi" || crypto == "api")
             {
                 var header = new DeviceInfo
                 {
@@ -295,6 +335,10 @@ namespace NeteaseCloudMusicSDK.RequestClient
                 }
 
                 headers["Cookie"] = header.ToEncodedHeaderString();
+            }
+            else
+            {
+                headers["Cookie"] = cookieDic.DictionaryToString();
             }
 
             return headers;
@@ -331,9 +375,12 @@ namespace NeteaseCloudMusicSDK.RequestClient
         /// - Data is converted into a query string format before being included in the `RequestSetting`.
         /// - Supports encryption methods like `weapi`, `linuxapi`, and `eapi` based on the `crypto` parameter.
         /// </remarks>
-        public RequestSetting PrepareRequest(string uri, object data, string crypto, Dictionary<string, string> cookieDic, string realIp, string ua)
+        public RequestSetting PrepareRequest(string uri, object data, string crypto, string cookie, string realIp, string ua)
         {
-            var headers = PrepareHeaders(cookieDic, crypto == "eapi" || crypto == "api", realIp, ua);
+            Dictionary<string, string> cookieDic = PrepareCookie(cookie, uri.Contains("login"));
+
+            var headers = PrepareHeaders(cookieDic, crypto, realIp, ua);
+
             var newData = PrepareData(uri, data, crypto, cookieDic, out string url);
 
             RequestSetting setting = new RequestSetting
@@ -341,7 +388,7 @@ namespace NeteaseCloudMusicSDK.RequestClient
                 Method = "POST",
                 Url = url,
                 Headers = headers,
-                Data = newData.ConvertToQueryString()
+                Data = DicStrUtil.ConvertToQueryString(newData)
             };
 
             return setting;
@@ -395,7 +442,7 @@ namespace NeteaseCloudMusicSDK.RequestClient
 
                 case "eapi":
                 case "api":
-                    url = PrepareEapiUrl(uri, newData, null, cookieDic);
+                    newData = PrepareEapiUrl(uri, newData, null, cookieDic, out url);
                     break;
 
                 default:
@@ -441,12 +488,9 @@ namespace NeteaseCloudMusicSDK.RequestClient
         /// This method enriches the `newData` object with the CSRF token and optional encryption flags.
         /// It also applies EAPI-specific transformations using <see cref="CryptoUtils.Eapi"/>.
         /// </remarks>
-        private string PrepareEapiUrl(string uri, dynamic newData, bool? e_r
-            , Dictionary<string, string> cookieDic)
+        private dynamic PrepareEapiUrl(string uri, dynamic newData, bool? e_r
+            , Dictionary<string, string> cookieDic, out string url)
         {
-            string csrfToken = cookieDic.GetValueOrDefault("__csrf", "");
-            newData.CSRF = csrfToken;
-
             if (e_r != null)
             {
                 newData.E_R = e_r;
@@ -458,7 +502,8 @@ namespace NeteaseCloudMusicSDK.RequestClient
             }
 
             newData = CryptoUtils.Eapi(uri, newData);
-            return $"{cfg.Domain}/eapi/{uri.Substring(5)}";
+            url = $"{cfg.Domain}/eapi/{uri.Substring(5)}";
+            return newData;
         }
 
     }

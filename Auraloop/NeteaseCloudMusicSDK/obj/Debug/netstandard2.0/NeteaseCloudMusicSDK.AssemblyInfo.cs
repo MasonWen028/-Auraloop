@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("NeteaseCloudMusicSDK")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+dd5a0c19fe1ca5685bb07e36baf78dfe356bb57c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f76f658ef3668d53d73797ae10b1cc01ac2058da")]
 [assembly: System.Reflection.AssemblyProductAttribute("NeteaseCloudMusicSDK")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NeteaseCloudMusicSDK")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

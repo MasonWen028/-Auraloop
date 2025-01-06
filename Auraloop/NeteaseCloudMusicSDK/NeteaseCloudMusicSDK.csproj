@@ -5,15 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
     <Folder Include="Extensions\" />
-    <Folder Include="Models\Common\" />
     <Folder Include="Models\Request\NewFolder\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
+	<Reference Include="Microsoft.CSharp" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
