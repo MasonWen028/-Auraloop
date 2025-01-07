@@ -8,7 +8,7 @@ using NeteaseCloudMusicSDK.Models.Response;
 using NeteaseCloudMusicSDK.Utils;
 using System.Threading.Tasks;
 
-namespace NeteaseCloudMusicSDK.NetEaseApiClient
+namespace NeteaseCloudMusicSDK.ApiClient
 {
     public class ApiResponseProcessor
     {
@@ -57,7 +57,7 @@ namespace NeteaseCloudMusicSDK.NetEaseApiClient
 
             try
             {
-                return JsonConvert.DeserializeObject(body);
+                return body;
             }
             catch (JsonException)
             {

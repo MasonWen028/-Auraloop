@@ -2,12 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <Folder Include="Exceptions\" />
     <Folder Include="Models\Request\NewFolder\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

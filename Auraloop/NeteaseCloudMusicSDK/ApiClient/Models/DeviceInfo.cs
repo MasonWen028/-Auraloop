@@ -3,7 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NeteaseCloudMusicSDK.RequestClient.Models
+
+
+
+namespace NeteaseCloudMusicSDK.ApiClient.Models
 {
     /// <summary>
     /// Represents device-specific metadata and request headers to be sent to the server.

@@ -1,4 +1,4 @@
-﻿using NeteaseCloudMusicSDK.Exceptions;
+﻿using NeteaseCloudMusicSDK.Extensions;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;

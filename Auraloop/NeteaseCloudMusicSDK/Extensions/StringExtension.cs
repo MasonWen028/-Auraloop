@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NeteaseCloudMusicSDK.Exceptions
+namespace NeteaseCloudMusicSDK.Extensions
 {
     public static class StringExtension
     {

@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace NeteaseCloudMusicSDK.RequestClient.Models
+using System.Collections.Generic;
+
+
+namespace NeteaseCloudMusicSDK.ApiClient.Models
 {
     /// <summary>
     /// Represents the configuration and settings for an HTTP request.

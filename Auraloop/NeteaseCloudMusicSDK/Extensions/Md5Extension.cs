@@ -5,7 +5,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace NeteaseCloudMusicSDK.Exceptions
+namespace NeteaseCloudMusicSDK.Extensions
 {
     /// <summary>
     /// A utility class for calculating md5 of string, file and byte array.
@@ -33,7 +33,7 @@ namespace NeteaseCloudMusicSDK.Exceptions
         /// <returns>The MD5 hash as a hexadecimal string.</returns>
         public static string CalculateMd5(this IFormFile file)
         {
-            byte[] data = ReadFileBytes(file);
+            byte[] data = file.ReadFileBytes();
             using (var md5 = MD5.Create())
             {
                 byte[] hashBytes = md5.ComputeHash(data);
@@ -76,9 +76,9 @@ namespace NeteaseCloudMusicSDK.Exceptions
         /// <returns>The MD5 hash as a lowercase hexadecimal string.</returns>
         public static string CalculateMd5(this string input)
         {
-            using (var md5 = System.Security.Cryptography.MD5.Create())
+            using (var md5 = MD5.Create())
             {
-                var inputBytes = System.Text.Encoding.UTF8.GetBytes(input);
+                var inputBytes = Encoding.UTF8.GetBytes(input);
                 var hashBytes = md5.ComputeHash(inputBytes);
                 return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
             }

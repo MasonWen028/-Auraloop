@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Reflection;
 
-namespace NeteaseCloudMusicApi_SDK.Helpers.Extensions
+namespace NeteaseCloudMusicSDK.Extensions
 {
     public static class ObjectExtension
     {

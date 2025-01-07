@@ -1,4 +1,6 @@
-﻿using NeteaseCloudMusicSDK.NetEaseApiClient.Models;
+﻿using NeteaseCloudMusicSDK.ApiClient;
+using NeteaseCloudMusicSDK.ApiClient.Models;
+using NeteaseCloudMusicSDK.Services;
 using System.ComponentModel.Design;
 using System.Net;
 
@@ -52,6 +54,9 @@ namespace SDKTestor
             //  "6": "A_EV_2_",
             //  "7": "A_DR_14_"
             //},
+
+            AlbumService album = new(netEaseApiClient);
+           
 
             RequestOptions options = new RequestOptions
             {

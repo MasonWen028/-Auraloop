@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
 
-namespace NeteaseCloudMusicSDK.RequestClient.Models
+
+namespace NeteaseCloudMusicSDK.ApiClient.Models
 {
     /// <summary>
     /// Model for storaging the OS info
