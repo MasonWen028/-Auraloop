@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicSDK.Models.Response;
 
@@ -12,13 +11,14 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves the main content blocks displayed on the homepage.
         /// </summary>
+        /// <param name="requestModel">The model containing parameters for fetching homepage content blocks.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the content blocks for the homepage.</returns>
-        Task<ApiResponse> HomepageBlockPage();
+        Task<ApiResponse> GetBlockPage(HomepageBlockPageRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the "Dragon Ball" feature content from the homepage.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the "Dragon Ball" feature information.</returns>
-        Task<ApiResponse> HomepageDragonBall();
+        Task<ApiResponse> GetDragonBall();
     }
 }

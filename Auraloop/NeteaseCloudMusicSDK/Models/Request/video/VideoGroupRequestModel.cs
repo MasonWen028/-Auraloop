@@ -1,14 +1,16 @@
-
 using Newtonsoft.Json;
 
 public class VideoGroupRequestModel
 {
     [JsonProperty("groupId")]
-    public string GroupId { get; set; }
+    public long GroupId { get; set; }
+
     [JsonProperty("offset")]
-    public int Offset { get; set; }
+    public int Offset { get; set; } = 0;
+
     [JsonProperty("need_preview_url")]
-    public string NeedPreviewUrl { get; set; }
+    public bool NeedPreviewUrl { get; set; } = true;
+
     [JsonProperty("total")]
-    public bool Total { get; set; }
+    public bool Total { get; set; } = true;
 }

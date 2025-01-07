@@ -6,5 +6,5 @@ public class YunbeiTaskFinishRequestModel
     [JsonProperty("userTaskId")]
     public string UserTaskId { get; set; }
     [JsonProperty("depositCode")]
-    public string DepositCode { get; set; }
+    public string DepositCode { get; set; } = "0";
 }

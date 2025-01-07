@@ -25,6 +25,8 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
 -----END PUBLIC KEY-----";
         private static readonly string eapiKey = "e82ckenh8dichen8";
 
+        private static readonly string ID_XOR_KEY_1 = "3go8&$8*3*3h0k(2)2";
+
         /// <summary>
         /// Encrypts a given plaintext string using AES with the specified mode, key, and IV.
         /// </summary>
@@ -374,6 +376,36 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
 
             // Convert the byte array to a Base64 string
             return Convert.ToBase64String(inputBytes);
+        }
+
+
+        /// <summary>
+        /// Encode id
+        /// </summary>
+        /// <param name="someId"></param>
+        /// <returns></returns>
+        public static string CloudMusicDllEncodeId(string someId)
+        {
+            // 1. XOR each character
+            StringBuilder xoredStringBuilder = new StringBuilder();
+            for (int i = 0; i < someId.Length; i++)
+            {
+                // ^ in C# will XOR the numeric (Unicode) value of the chars
+                char xoredChar = (char)(someId[i] ^ ID_XOR_KEY_1[i % ID_XOR_KEY_1.Length]);
+                xoredStringBuilder.Append(xoredChar);
+            }
+
+            // Convert the xored string to UTF-8 bytes
+            byte[] xoredBytes = Encoding.UTF8.GetBytes(xoredStringBuilder.ToString());
+
+            // 2. Compute MD5
+            using (MD5 md5 = MD5.Create())
+            {
+                byte[] digestBytes = md5.ComputeHash(xoredBytes);
+
+                // 3. Convert MD5 digest to Base64
+                return Convert.ToBase64String(digestBytes);
+            }
         }
 
     }

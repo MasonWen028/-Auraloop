@@ -1,35 +1,25 @@
-
 using Newtonsoft.Json;
 
+/// <summary>
+/// Represents the parameters required for logging in using a cellphone.
+/// </summary>
 public class LoginCellphoneRequestModel
 {
     /// <summary>
-    /// The phone number of the user.
+    /// Gets or sets the cellphone number for login.
     /// </summary>
     [JsonProperty("phone")]
     public string Phone { get; set; }
 
     /// <summary>
-    /// The country code for the user's phone number.
+    /// Gets or sets the country code for the cellphone. Default is "86".
     /// </summary>
     [JsonProperty("countrycode")]
-    public string CountryCode { get; set; }
+    public string CountryCode { get; set; } = "86";
 
     /// <summary>
-    /// The CAPTCHA entered by the user (if available).
-    /// </summary>
-    [JsonProperty("captcha")]
-    public string Captcha { get; set; }
-
-    /// <summary>
-    /// The MD5 hash of the user's password (optional).
-    /// </summary>
-    [JsonProperty("md5_password")]
-    public string Md5Password { get; set; }
-
-    /// <summary>
-    /// The plain text password entered by the user.
+    /// Gets or sets the password or verification code for login.
     /// </summary>
     [JsonProperty("password")]
-    public string Password { get; set; }
+    public string PasswordOrCaptcha { get; set; }
 }

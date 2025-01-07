@@ -1,16 +1,16 @@
-
 using Newtonsoft.Json;
 
+/// <summary>
+/// Represents the parameters required to retrieve the user's comment history.
+/// </summary>
 public class UserCommentHistoryRequestModel
 {
-    [JsonProperty("compose_reminder")]
-    public string ComposeReminder { get; set; }
-    [JsonProperty("compose_hot_comment")]
-    public string ComposeHotComment { get; set; }
     [JsonProperty("limit")]
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 10;
+
     [JsonProperty("user_id")]
-    public string UserId { get; set; }
+    public long UserId { get; set; }
+
     [JsonProperty("time")]
-    public long Time { get; set; }
+    public long Time { get; set; } = 0;
 }

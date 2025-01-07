@@ -1,12 +1,16 @@
-
 using Newtonsoft.Json;
 
+/// <summary>
+/// Represents the parameters required to retrieve mixed follow lists.
+/// </summary>
 public class UserFollowMixedRequestModel
 {
-    [JsonProperty("authority")]
-    public string Authority { get; set; }
-    [JsonProperty("page")]
-    public string Page { get; set; }
+    [JsonProperty("size")]
+    public int Size { get; set; } = 30;
+
     [JsonProperty("cursor")]
-    public string Cursor { get; set; }
+    public int Cursor { get; set; } = 0;
+
+    [JsonProperty("scene")]
+    public int Scene { get; set; } = 0; // 0: All, 1: Artists, 2: Users
 }

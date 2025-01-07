@@ -3,13 +3,16 @@ using Newtonsoft.Json;
 
 public class PlaylistSubscribeRequestModel
 {
+    /// <summary>
+    /// Gets or sets the unique identifier of the playlist.
+    /// </summary>
     [JsonProperty("id")]
-    public long Id { get; set; }
-}
+    public long PlaylistId { get; set; }
 
-
-public enum SubOpType
-{
-    subscribe = 1,
-    unsubscribe = 2
+    /// <summary>
+    /// Gets or sets the operation type.
+    /// Use 1 for subscribe and 0 for unsubscribe.
+    /// </summary>
+    [JsonProperty("t")]
+    public int Operation { get; set; }
 }

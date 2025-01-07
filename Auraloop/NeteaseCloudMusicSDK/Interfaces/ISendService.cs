@@ -14,27 +14,27 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The model containing the album details and recipients.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the operation.</returns>
-        Task<ApiResponse> SendAlbum(SendAlbumRequestModel requestModel);
+        Task<ApiResponse> Album(SendAlbumRequestModel requestModel);
 
         /// <summary>
         /// Sends a playlist as a private message.
         /// </summary>
         /// <param name="requestModel">The model containing the playlist details and recipients.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the operation.</returns>
-        Task<ApiResponse> SendPlaylist(SendPlaylistRequestModel requestModel);
+        Task<ApiResponse> Playlist(SendPlaylistRequestModel requestModel);
 
         /// <summary>
         /// Sends a song as a private message.
         /// </summary>
         /// <param name="requestModel">The model containing the song details and recipients.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the operation.</returns>
-        Task<ApiResponse> SendSong(SendSongRequestModel requestModel);
+        Task<ApiResponse> Song(SendSongRequestModel requestModel);
 
         /// <summary>
         /// Sends a text message as a private message.
         /// </summary>
         /// <param name="requestModel">The model containing the text message and recipients.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the operation.</returns>
-        Task<ApiResponse> SendText(SendTextRequestModel requestModel);
+        Task<ApiResponse> Text(SendTextRequestModel requestModel);
     }
 }

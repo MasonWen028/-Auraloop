@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicSDK.Models.Response;
 
@@ -12,16 +11,15 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves an intelligent list of songs for a specific play mode.
         /// </summary>
-        /// <param name="id">The unique identifier of the song being used as a reference for recommendations.</param>
-        /// <param name="pid">The playlist ID for context in generating recommendations.</param>
-        /// <param name="sid">An optional parameter for specifying a seed song ID for more targeted recommendations.</param>
+        /// <param name="requestModel">The model containing parameters for generating the intelligent list.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the intelligently generated list of songs.</returns>
-        Task<ApiResponse> PlaymodeIntelligenceList(long id, long pid, long? sid);
+        Task<ApiResponse> IntelligenceList(PlaymodeIntelligenceListRequestModel requestModel);
 
         /// <summary>
         /// Retrieves song vectors for play mode analysis and personalization.
         /// </summary>
+        /// <param name="requestModel">The model containing parameters for retrieving song vectors.</param>
         /// <returns>An <see cref="ApiResponse"/> containing song vector data, which can be used for advanced play mode personalization.</returns>
-        Task<ApiResponse> PlaymodeSongVector();
+        Task<ApiResponse> SongVector(PlaymodeSongVectorRequestModel requestModel);
     }
 }

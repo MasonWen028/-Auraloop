@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicSDK.Models.Response;
 
@@ -13,12 +12,13 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Retrieves a list of historically recommended songs for the user.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the list of recommended songs.</returns>
-        Task<ApiResponse> HistoryRecommendSongs();
+        Task<ApiResponse> GetRecommendedSongs();
 
         /// <summary>
-        /// Retrieves detailed information about historically recommended songs.
+        /// Retrieves detailed information about historically recommended songs for a specific date.
         /// </summary>
+        /// <param name="requestModel">The model containing the date for fetching detailed song recommendations.</param>
         /// <returns>An <see cref="ApiResponse"/> containing detailed information about the recommended songs.</returns>
-        Task<ApiResponse> HistoryRecommendSongsDetail();
+        Task<ApiResponse> GetRecommendedSongsDetail(HistoryRecommendSongsDetailRequestModel requestModel);
     }
 }

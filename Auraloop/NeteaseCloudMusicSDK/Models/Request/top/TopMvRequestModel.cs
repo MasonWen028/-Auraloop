@@ -1,14 +1,13 @@
-
 using Newtonsoft.Json;
 
 public class TopMvRequestModel
 {
     [JsonProperty("area")]
-    public string Area { get; set; }
+    public string Area { get; set; } = "";
+
     [JsonProperty("limit")]
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 30;
+
     [JsonProperty("offset")]
-    public int Offset { get; set; }
-    [JsonProperty("total")]
-    public bool Total { get; set; }
+    public int Offset { get; set; } = 0;
 }

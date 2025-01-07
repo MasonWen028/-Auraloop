@@ -13,18 +13,18 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Retrieves a list of recommended resources, such as playlists or albums.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing recommended resources.</returns>
-        Task<ApiResponse> RecommendResource();
+        Task<ApiResponse> Resource();
 
         /// <summary>
         /// Retrieves a list of recommended songs based on the user's listening preferences.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing recommended songs.</returns>
-        Task<ApiResponse> RecommendSongs();
+        Task<ApiResponse> Songs();
 
         /// <summary>
         /// Marks specific songs as disliked to influence future recommendations.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the dislike operation.</returns>
-        Task<ApiResponse> RecommendSongsDislike();
+        Task<ApiResponse> SongsDislike(RecommendSongsDislikeRequestModel requestModel);
     }
 }

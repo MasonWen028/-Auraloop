@@ -1,16 +1,16 @@
-
 using Newtonsoft.Json;
 
 public class TopPlaylistRequestModel
 {
     [JsonProperty("cat")]
-    public string Cat { get; set; }
+    public string Category { get; set; } = "È«²¿";
+
     [JsonProperty("order")]
-    public string Order { get; set; }
+    public string Order { get; set; } = "hot";
+
     [JsonProperty("limit")]
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 50;
+
     [JsonProperty("offset")]
-    public int Offset { get; set; }
-    [JsonProperty("total")]
-    public bool Total { get; set; }
+    public int Offset { get; set; } = 0;
 }

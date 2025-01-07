@@ -9,98 +9,94 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
     public interface ICommentService
     {
         /// <summary>
-        /// Retrieves comments for a generic entity.
+        /// Sends, deletes, or replies to a comment.
         /// </summary>
-        /// <returns>An <see cref="ApiResponse"/> containing the comments for the entity.</returns>
-        Task<ApiResponse> Comment();
+        /// <param name="requestModel">The request model containing parameters for the comment operation.</param>
+        /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the operation.</returns>
+        Task<ApiResponse> ManageComment(CommentManageRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific album.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching album comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing album comments.</returns>
-        Task<ApiResponse> CommentAlbum();
+        Task<ApiResponse> GetAlbumComments(CommentRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific DJ program.
         /// </summary>
-        /// <returns>An <see cref="ApiResponse"/> containing DJ program comments.</returns>
-        Task<ApiResponse> CommentDj();
+        /// <param name="requestModel">The request model containing parameters for fetching DJ comments.</param>
+        /// <returns>An <see cref="ApiResponse"/> containing DJ comments.</returns>
+        Task<ApiResponse> GetDjComments(CommentRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific event.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching event comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing event comments.</returns>
-        Task<ApiResponse> CommentEvent();
+        Task<ApiResponse> GetEventComments(CommentRequestModel requestModel);
 
         /// <summary>
-        /// Retrieves comments for a specific floor (nested comment level).
+        /// Retrieves nested comments for a specific thread.
         /// </summary>
-        /// <returns>An <see cref="ApiResponse"/> containing floor comments.</returns>
-        Task<ApiResponse> CommentFloor();
+        /// <param name="requestModel">The request model containing parameters for fetching nested comments.</param>
+        /// <returns>An <see cref="ApiResponse"/> containing nested comments.</returns>
+        Task<ApiResponse> GetFloorComments(CommentFloorRequestModel requestModel);
 
         /// <summary>
-        /// Retrieves hot (popular) comments based on the provided request model.
+        /// Retrieves hot comments for a specific resource.
         /// </summary>
-        /// <param name="requestModel">The request model containing parameters for retrieving hot comments.</param>
+        /// <param name="requestModel">The request model containing parameters for fetching hot comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing hot comments.</returns>
-        Task<ApiResponse> CommentHot(CommentHotRequestModel requestModel);
+        Task<ApiResponse> GetHotComments(CommentHotRequestModel requestModel);
 
         /// <summary>
-        /// Retrieves the list of comment likes or "hugs."
+        /// Retrieves the list of users who liked a specific comment.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching likes or hugs.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the list of likes or hugs.</returns>
-        Task<ApiResponse> CommentHugList();
+        Task<ApiResponse> GetHugList(CommentHugListRequestModel requestModel);
 
         /// <summary>
-        /// Likes or unlikes a specific comment based on the provided request model.
+        /// Likes or unlikes a specific comment.
         /// </summary>
         /// <param name="requestModel">The request model containing parameters for liking or unliking a comment.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the operation.</returns>
-        Task<ApiResponse> CommentLike(CommentLikeRequestModel requestModel);
+        Task<ApiResponse> LikeComment(CommentLikeRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific music track.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching music comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing music comments.</returns>
-        Task<ApiResponse> CommentMusic();
+        Task<ApiResponse> GetMusicComments(CommentRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific music video (MV).
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching MV comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing MV comments.</returns>
-        Task<ApiResponse> CommentMv();
+        Task<ApiResponse> GetMvComments(CommentRequestModel requestModel);
 
         /// <summary>
-        /// Retrieves new comments based on the provided request model.
+        /// Retrieves new comments for a specific resource.
         /// </summary>
-        /// <param name="requestModel">The request model containing parameters for retrieving new comments.</param>
-        /// <returns>An <see cref="ApiResponse"/> containing the newest comments.</returns>
-        Task<ApiResponse> CommentNew(CommentNewRequestModel requestModel);
+        /// <param name="requestModel">The request model containing parameters for fetching new comments.</param>
+        /// <returns>An <see cref="ApiResponse"/> containing the new comments.</returns>
+        Task<ApiResponse> GetNewComments(CommentNewRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific playlist.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching playlist comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing playlist comments.</returns>
-        Task<ApiResponse> CommentPlaylist();
+        Task<ApiResponse> GetPlaylistComments(CommentRequestModel requestModel);
 
         /// <summary>
         /// Retrieves comments for a specific video.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for fetching video comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing video comments.</returns>
-        Task<ApiResponse> CommentVideo();
-
-        /// <summary>
-        /// Adds a "hug" (positive interaction) to a specific comment.
-        /// </summary>
-        /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the hug action.</returns>
-        Task<ApiResponse> HugComment();
-
-        /// <summary>
-        /// Retrieves a summary of comments from the Starpick comments section.
-        /// </summary>
-        /// <param name="requestModel">The model containing parameters for retrieving the comments summary.</param>
-        /// <returns>An <see cref="ApiResponse"/> containing the summary of comments.</returns>
-        Task<ApiResponse> StarpickCommentsSummary(StarpickCommentsSummaryRequestModel requestModel);
+        Task<ApiResponse> GetVideoComments(CommentRequestModel requestModel);
     }
-
 }

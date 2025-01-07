@@ -1,14 +1,19 @@
-
 using Newtonsoft.Json;
 
-public class UserReplacephoneRequestModel
+/// <summary>
+/// Represents the parameters required to replace the user's phone number.
+/// </summary>
+public class UserReplacePhoneRequestModel
 {
     [JsonProperty("phone")]
     public string Phone { get; set; }
+
     [JsonProperty("captcha")]
     public string Captcha { get; set; }
+
     [JsonProperty("oldcaptcha")]
-    public string Oldcaptcha { get; set; }
+    public string OldCaptcha { get; set; }
+
     [JsonProperty("countrycode")]
-    public int Countrycode { get; set; }
+    public string CountryCode { get; set; } = "86";
 }

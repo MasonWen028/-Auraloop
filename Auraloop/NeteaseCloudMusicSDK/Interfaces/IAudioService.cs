@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicSDK.Models.Response;
 
@@ -12,7 +11,8 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Matches audio files to corresponding metadata or tracks in the system.
         /// </summary>
+        /// <param name="requestModel">The request model containing parameters for audio matching.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the match results for the audio files.</returns>
-        Task<ApiResponse> AudioMatch();
+        Task<ApiResponse> MatchAudio(AudioMatchRequestModel requestModel);
     }
 }

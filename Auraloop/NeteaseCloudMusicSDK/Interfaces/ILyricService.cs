@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicSDK.Models.Response;
 
@@ -12,14 +11,15 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves the lyrics for a currently playing or default song.
         /// </summary>
+        /// <param name="requestModel">The model containing parameters for fetching lyrics.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the lyrics for the song.</returns>
-        Task<ApiResponse> Lyric();
+        Task<ApiResponse> GetLyrics(LyricRequestModel requestModel);
 
         /// <summary>
-        /// Retrieves the lyrics for a specific song by its unique identifier.
+        /// Retrieves the lyrics for a specific song by its unique identifier, including advanced lyric versions.
         /// </summary>
-        /// <param name="id">The unique identifier of the song.</param>
+        /// <param name="requestModel">The model containing parameters for fetching advanced lyrics.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the lyrics for the specified song.</returns>
-        Task<ApiResponse> LyricNew(long id);
+        Task<ApiResponse> GetAdvancedLyrics(LyricNewRequestModel requestModel);
     }
 }

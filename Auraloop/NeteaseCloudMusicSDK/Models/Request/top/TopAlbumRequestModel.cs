@@ -1,22 +1,23 @@
-
 using Newtonsoft.Json;
+using System;
 
 public class TopAlbumRequestModel
 {
     [JsonProperty("area")]
-    public string Area { get; set; }
+    public string Area { get; set; } = "ALL";
+
     [JsonProperty("limit")]
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 50;
+
     [JsonProperty("offset")]
-    public int Offset { get; set; }
+    public int Offset { get; set; } = 0;
+
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public string Type { get; set; } = "new";
+
     [JsonProperty("year")]
-    public string Year { get; set; }
+    public int Year { get; set; } = DateTime.Now.Year;
+
     [JsonProperty("month")]
-    public string Month { get; set; }
-    [JsonProperty("total")]
-    public bool Total { get; set; }
-    [JsonProperty("rcmd")]
-    public bool Rcmd { get; set; }
+    public int Month { get; set; } = DateTime.Now.Month;
 }

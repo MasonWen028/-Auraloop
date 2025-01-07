@@ -1,10 +1,10 @@
-
 using Newtonsoft.Json;
 
-public class VipGrowthpointDetailsRequestModel
+public class VipGrowthPointDetailsRequestModel
 {
     [JsonProperty("limit")]
-    public int Limit { get; set; }
+    public int Limit { get; set; } = 20;
+
     [JsonProperty("offset")]
-    public int Offset { get; set; }
+    public int Offset { get; set; } = 0;
 }

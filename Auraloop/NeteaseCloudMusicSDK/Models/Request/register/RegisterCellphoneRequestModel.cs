@@ -12,5 +12,5 @@ public class RegisterCellphoneRequestModel
     [JsonProperty("nickname")]
     public string Nickname { get; set; }
     [JsonProperty("countrycode")]
-    public int Countrycode { get; set; }
+    public int Countrycode { get; set; } = 86;
 }

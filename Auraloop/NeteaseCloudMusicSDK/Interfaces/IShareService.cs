@@ -14,6 +14,6 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The model containing the resource details and optional message.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the sharing operation.</returns>
-        Task<ApiResponse> ShareResource(ShareResourceRequestModel requestModel);
+        Task<ApiResponse> Resource(ShareResourceRequestModel requestModel);
     }
 }

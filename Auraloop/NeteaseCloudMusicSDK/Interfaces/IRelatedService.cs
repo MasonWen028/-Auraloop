@@ -12,13 +12,20 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves a list of videos related to a specific context, such as a song or artist.
         /// </summary>
-        /// <returns>An <see cref="ApiResponse"/> containing related videos.</returns>
-        Task<ApiResponse> RelatedAllVideo();
+        /// <param name="id">
+        /// RelatedAllvideoRequestModel model = new RelatedAllvideoRequestModel(id)
+        /// </param>
+        /// <returns></returns>
+        Task<ApiResponse> AllVideo(string id);
 
+                
         /// <summary>
         /// Retrieves playlists related to a specific context, such as a song or artist.
         /// </summary>
-        /// <returns>An <see cref="ApiResponse"/> containing related playlists.</returns>
-        Task<ApiResponse> RelatedPlaylist();
+        /// <param name="id">
+        /// curl -X GET "https://music.163.com/playlist?id={id}"
+        /// </param>
+        /// <returns></returns>
+        Task<ApiResponse> Playlist(string id);
     }
 }

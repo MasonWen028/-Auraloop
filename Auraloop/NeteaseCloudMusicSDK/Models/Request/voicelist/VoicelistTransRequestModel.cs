@@ -1,16 +1,19 @@
-
 using Newtonsoft.Json;
 
 public class VoicelistTransRequestModel
 {
-    [JsonProperty("limit")]
-    public string Limit { get; set; }
-    [JsonProperty("offset")]
-    public string Offset { get; set; }
     [JsonProperty("radioId")]
-    public string RadioId { get; set; }
+    public long? RadioId { get; set; } = null;
+
     [JsonProperty("programId")]
-    public string ProgramId { get; set; }
+    public long ProgramId { get; set; } = 0;
+
     [JsonProperty("position")]
-    public string Position { get; set; }
+    public int Position { get; set; } = 1;
+
+    [JsonProperty("limit")]
+    public int Limit { get; set; } = 200;
+
+    [JsonProperty("offset")]
+    public int Offset { get; set; } = 0;
 }

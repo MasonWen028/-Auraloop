@@ -1,18 +1,19 @@
-
 using Newtonsoft.Json;
 
+/// <summary>
+/// Represents the parameters required to remove tracks from a playlist.
+/// </summary>
 public class PlaylistTrackDeleteRequestModel
 {
+    /// <summary>
+    /// Gets or sets the unique identifier of the playlist.
+    /// </summary>
     [JsonProperty("id")]
-    public string Id { get; set; }
+    public long PlaylistId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the track IDs to remove from the playlist.
+    /// </summary>
     [JsonProperty("tracks")]
-    public string Tracks { get; set; }
-    [JsonProperty("map")]
-    public string Map { get; set; }
-    [JsonProperty("item")]
-    public string Item { get; set; }
-    [JsonProperty("return")]
-    public string Return { get; set; }
-    [JsonProperty("type")]
-    public int Type { get; set; }
+    public long[] TrackIds { get; set; }
 }

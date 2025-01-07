@@ -1,7 +1,16 @@
 
 using Newtonsoft.Json;
 
+
+
 public class SearchMatchRequestModel
+{
+    [JsonProperty("songs")]
+    public string Songs { get; set; }
+}
+
+
+public class SearchMatchSongs
 {
     /// <summary>
     /// The title of the file, retrieved from the file's metadata, not the filename.

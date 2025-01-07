@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicSDK.Models.Response;
 
@@ -12,31 +11,32 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Reports real-time listening data.
         /// </summary>
+        /// <param name="requestModel">The model containing parameters for the real-time report.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the real-time report submission.</returns>
-        Task<ApiResponse> ListenDataRealtimeReport();
+        Task<ApiResponse> RealtimeReport(ListenDataRealtimeReportRequestModel requestModel);
 
         /// <summary>
         /// Submits listening data for a specific period or event.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the data submission.</returns>
-        Task<ApiResponse> ListenDataReport();
+        Task<ApiResponse> Report();
 
         /// <summary>
         /// Retrieves the songs listened to by the user today.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the list of songs listened to today.</returns>
-        Task<ApiResponse> ListenDataTodaySong();
+        Task<ApiResponse> TodaySongs();
 
         /// <summary>
         /// Retrieves the total listening data for the user, including song count and duration.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the total listening data.</returns>
-        Task<ApiResponse> ListenDataTotal();
+        Task<ApiResponse> Total();
 
         /// <summary>
         /// Retrieves an annual report summarizing the user's listening habits over the year.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the annual listening report.</returns>
-        Task<ApiResponse> ListenDataYearReport();
+        Task<ApiResponse> YearReport();
     }
 }

@@ -25,7 +25,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Retrieves the list of hot search terms.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the list of hot search terms.</returns>
-        Task<ApiResponse> SearchHot();
+        Task<ApiResponse> SearchHot(int type = 1111);
 
         /// <summary>
         /// Retrieves detailed information about hot search terms, including rankings and metadata.
@@ -36,7 +36,9 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Matches specific search keywords against the database.
         /// </summary>
-        /// <param name="requestModel">The request model containing the search criteria.</param>
+        /// <param name="requestModel">The request model containing the search criteria.
+        /// SearchMatchRequestModel.Songs should be the json string of and array of SearchMatchSongs 
+        /// </param>
         /// <returns>An <see cref="ApiResponse"/> containing the search matches.</returns>
         Task<ApiResponse> SearchMatch(SearchMatchRequestModel requestModel);
 

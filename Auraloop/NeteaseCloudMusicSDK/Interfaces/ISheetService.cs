@@ -14,13 +14,13 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The model containing parameters for listing music sheets.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the list of music sheets.</returns>
-        Task<ApiResponse> SheetList(SheetListRequestModel requestModel);
+        Task<ApiResponse> List(SheetListRequestModel requestModel);
 
         /// <summary>
         /// Retrieves preview information for a specific music sheet.
         /// </summary>
         /// <param name="requestModel">The model containing parameters for the sheet preview.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the music sheet preview information.</returns>
-        Task<ApiResponse> SheetPreview(SheetPreviewRequestModel requestModel);
+        Task<ApiResponse> Preview(SheetPreviewRequestModel requestModel);
     }
 }

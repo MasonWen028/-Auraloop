@@ -29,28 +29,4 @@ public class TopPlaylistHighqualityRequestModel
     public bool Total { get; set; } = true;
 }
 
-public enum PlaylistCategory
-{
-    All,           // All playlists
-    Chinese,       // Chinese music
-    Western,       // Western music
-    Korean,        // Korean music
-    Japanese,      // Japanese music
-    Cantonese,     // Cantonese music
-    MinorLanguages, // Minor languages
-    Sports,        // Sports-related playlists
-    ACG,           // Anime, Comic, and Games
-    Soundtrack,    // Movie soundtracks
-    Pop,           // Pop music
-    Rock,          // Rock music
-    PostRock,      // Post-rock music
-    AncientStyle,  // Ancient/traditional style
-    Folk,          // Folk music
-    LightMusic,    // Light/instrumental music
-    Electronic,    // Electronic music
-    Instrumental,  // Instrumental music
-    Rap,           // Rap music
-    Classical,     // Classical music
-    Jazz           // Jazz music
-}
 
