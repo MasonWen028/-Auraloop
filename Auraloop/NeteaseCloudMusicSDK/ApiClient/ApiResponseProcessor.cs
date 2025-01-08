@@ -84,6 +84,8 @@ namespace NeteaseCloudMusicSDK.ApiClient
 
                 response.StatusCode = MapStatusCode(code);
 
+                response.IsSuccess = true;
+
                 response.Cookie = ExtractCookie(httpResponse);
             }
             catch (Exception ex)

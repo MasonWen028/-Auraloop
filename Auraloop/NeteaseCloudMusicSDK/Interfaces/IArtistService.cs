@@ -13,7 +13,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="artistId">The unique identifier of the artist.</param>
         /// <returns>An <see cref="ApiResponse"/> containing artist information.</returns>
-        Task<ApiResponse> GetArtistInfo(long artistId);
+        //Task<ApiResponse> GetArtistInfo(long artistId);
 
         /// <summary>
         /// Retrieves the description of an artist.
@@ -41,14 +41,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="artistId">The unique identifier of the artist.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the fan count for the artist.</returns>
-        Task<ApiResponse> GetArtistFanCount(long artistId);
-
-        /// <summary>
-        /// Retrieves the follow count for an artist.
-        /// </summary>
-        /// <param name="artistId">The unique identifier of the artist.</param>
-        /// <returns>An <see cref="ApiResponse"/> containing the follow count for the artist.</returns>
-        Task<ApiResponse> GetArtistFollowCount(long artistId);
+        Task<ApiResponse> GetArtistFansCount(long artistId);
 
         /// <summary>
         /// Retrieves a list of artists based on specified filters.
@@ -69,27 +62,20 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves a list of new MVs by artists.
         /// </summary>
-        /// <param name="limit">The maximum number of MVs to retrieve. Default is 50.</param>
-        /// <param name="beforeTimestamp">A timestamp to retrieve MVs released before this time.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the new MVs.</returns>
-        Task<ApiResponse> GetNewMVs(int limit = 50, long beforeTimestamp = 0);
+        Task<ApiResponse> GetNewMVs(ArtistNewMvRequestModel requestModel);
 
         /// <summary>
         /// Retrieves a list of new songs by an artist.
         /// </summary>
-        /// <param name="artistId">The unique identifier of the artist.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the artist's new songs.</returns>
-        Task<ApiResponse> GetNewSongsByArtist(long artistId);
+        Task<ApiResponse> GetNewSongsByArtist(ArtistNewSongRequestModel requestModel);
 
         /// <summary>
         /// Retrieves a list of songs by an artist with sorting and pagination options.
         /// </summary>
-        /// <param name="artistId">The unique identifier of the artist.</param>
-        /// <param name="limit">The maximum number of songs to retrieve. Default is 50.</param>
-        /// <param name="offset">The offset for pagination. Default is 0.</param>
-        /// <param name="order">The sorting order for the songs (e.g., "hot"). Default is "hot".</param>
         /// <returns>An <see cref="ApiResponse"/> containing the artist's songs.</returns>
-        Task<ApiResponse> GetSongsByArtist(long artistId, int limit = 50, int offset = 0, string order = "hot");
+        Task<ApiResponse> GetSongsByArtist(ArtistSongsRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the top songs of an artist.
@@ -101,15 +87,8 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves videos associated with an artist.
         /// </summary>
-        /// <param name="artistId">The unique identifier of the artist.</param>
+        /// <param name="requestModel">The unique identifier of the artist.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the artist's videos.</returns>
-        Task<ApiResponse> GetArtistVideos(long artistId);
-
-        /// <summary>
-        /// Retrieves information about multiple artists by their IDs.
-        /// </summary>
-        /// <param name="artistIds">A comma-separated list of artist IDs.</param>
-        /// <returns>An <see cref="ApiResponse"/> containing information about the specified artists.</returns>
-        Task<ApiResponse> GetArtistsByIds(string artistIds);
+        Task<ApiResponse> GetArtistVideos(ArtistVideoRequestModel requestModel);
     }
 }

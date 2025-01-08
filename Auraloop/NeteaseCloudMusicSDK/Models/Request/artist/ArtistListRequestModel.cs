@@ -13,7 +13,7 @@ public class ArtistListRequestModel
     /// 3: Band.
     /// </summary>
     [JsonProperty("type")]
-    public ArtistType Type { get; set; } = ArtistType.All;
+    public int Type { get; set; } = -1;
 
     /// <summary>
     /// The area of the artist:
@@ -25,10 +25,10 @@ public class ArtistListRequestModel
     /// 0: Other.
     /// </summary>
     [JsonProperty("area")]
-    public ArtistArea Area { get; set; } = ArtistArea.All;
+    public int Area { get; set; } = -1;
 
     /// <summary>
-    /// The initial letter for filtering artists.
+    /// The initial letter for filtering artists. varys from a-z/A-Z
     /// </summary>
     [JsonProperty("initial")]
     public string Initial { get; set; }
@@ -44,28 +44,11 @@ public class ArtistListRequestModel
     /// </summary>
     [JsonProperty("limit")]
     public int Limit { get; set; } = 50;
+
+    /// <summary>
+    /// Get all artists
+    /// </summary>
+    [JsonProperty("total")]
+    public bool Total { get; set; } = true;
 }
 
-/// <summary>
-/// Enumeration for the type of artist.
-/// </summary>
-public enum ArtistType
-{
-    All = -1,       // All
-    MaleSinger = 1, // Male Singer
-    FemaleSinger = 2, // Female Singer
-    Band = 3        // Band
-}
-
-/// <summary>
-/// Enumeration for the area of the artist.
-/// </summary>
-public enum ArtistArea
-{
-    All = -1,       // All
-    Chinese = 7,    // Chinese
-    Western = 96,   // European/American
-    Japanese = 8,   // Japanese
-    Korean = 16,    // Korean
-    Other = 0       // Other
-}

@@ -295,9 +295,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves a list of subscribed artists for the user.
         /// </summary>
-        /// <param name="limit">The maximum number of artists to retrieve. Default is 50.</param>
-        /// <param name="offset">The offset for pagination. Default is 0.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the list of subscribed artists.</returns>
-        Task<ApiResponse> GetSubscribedArtists(int limit = 50, int offset = 0);
+        Task<ApiResponse> GetSubscribedArtists(ArtistSublistRequestModel requestModel);
     }
 }
