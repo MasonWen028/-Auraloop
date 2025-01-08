@@ -9,15 +9,6 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
     public interface IArtistService
     {
         /// <summary>
-        /// Retrieves a list of albums by an artist.
-        /// </summary>
-        /// <param name="artistId">The unique identifier of the artist.</param>
-        /// <param name="limit">The maximum number of albums to retrieve. Default is 50.</param>
-        /// <param name="offset">The offset for pagination. Default is 0.</param>
-        /// <returns>An <see cref="ApiResponse"/> containing the artist's albums.</returns>
-        Task<ApiResponse> GetAlbumsByArtist(long artistId, int limit = 50, int offset = 0);
-
-        /// <summary>
         /// Retrieves basic information about an artist.
         /// </summary>
         /// <param name="artistId">The unique identifier of the artist.</param>

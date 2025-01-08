@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace NeteaseCloudMusicSDK.Services
 {
+    /// <summary>
+    /// Defines methods to interact with album-related functionalities in the Netease Cloud Music API.
+    /// </summary>
     public class AlbumService : IAlbumService
     {
         private readonly NetEaseApiClient _client;
@@ -215,6 +218,25 @@ namespace NeteaseCloudMusicSDK.Services
             if (requestModel == null)
             {
                 throw new ArgumentException("Request model cannot be null.", nameof(requestModel));
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<ApiResponse> GetAlbumsByArtist(ArtistAlbumRequestModel requestModel)
+        {
+            if (requestModel.ArtistId == 0)
+            {
+                throw new ArgumentException("Artist Id can not be 0.", nameof(requestModel));
+            }
+
+            try
+            {
+                var options = new RequestOptions($"/api/artist/albums/{requestModel.ArtistId}", requestModel, "weapi");
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Failed to get album subscription list.", ex);
             }
         }
     }

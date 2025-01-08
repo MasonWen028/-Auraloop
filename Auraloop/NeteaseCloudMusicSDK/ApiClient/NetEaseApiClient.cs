@@ -17,12 +17,15 @@ namespace NeteaseCloudMusicSDK.ApiClient
     {
         private readonly HttpClient _client;
 
+        private readonly RequestContext _context;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NetEaseApiClient"/> class with customized settings.
         /// </summary>
-        public NetEaseApiClient(HttpClient client)
+        public NetEaseApiClient(HttpClient client, RequestContext context)
         {
             _client = client;
+            _context = context;
         }
 
         /// <summary>
@@ -70,6 +73,10 @@ namespace NeteaseCloudMusicSDK.ApiClient
         /// </remarks>
         public async Task<ApiResponse> HandleRequestAsync(RequestOptions option)
         {
+            if (!string.IsNullOrEmpty(_context.Cookie))
+            {
+                option.Cookie = _context.Cookie;
+            }
             ApiResponse apiResponse = new ApiResponse();
             RequestBuilder requestBuilder = new RequestBuilder(option);
 

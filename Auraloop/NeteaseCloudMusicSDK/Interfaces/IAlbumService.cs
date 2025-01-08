@@ -81,5 +81,11 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the list of subscribed albums.</returns>
         Task<ApiResponse> AlbumSublist(AlbumSublistRequestModel requestModel);
+
+        /// <summary>
+        /// Retrieves a list of albums by an artist.
+        /// </summary>
+        /// <returns>An <see cref="ApiResponse"/> containing the artist's albums.</returns>
+        Task<ApiResponse> GetAlbumsByArtist(ArtistAlbumRequestModel requestModel);
     }
 }

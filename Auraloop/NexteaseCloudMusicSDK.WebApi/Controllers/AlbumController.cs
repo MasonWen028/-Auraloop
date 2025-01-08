@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NeteaseCloudMusicApi_SDK.Interfaces;
+using NeteaseCloudMusicSDK.ApiClient;
 using NeteaseCloudMusicSDK.Models.Request;
 
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
@@ -10,9 +11,12 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
     {
         private readonly IAlbumService _albumService;
 
-        public AlbumController(IAlbumService albumService)
+        private readonly RequestContext _context;
+
+        public AlbumController(IAlbumService albumService, RequestContext context)
         {
             _albumService = albumService;
+            _context = context;
         }
 
         /// <summary>
@@ -234,5 +238,28 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
                 return StatusCode(500, new { Error = ex.Message });
             }
         }
+
+
+        /// <summary>
+        /// Retrieves a list of subscribed albums with pagination options.
+        /// </summary>
+        [HttpPost("ArtistAlbums")]
+        public async Task<IActionResult> ArtistAlbums([FromBody] ArtistAlbumRequestModel requestModel)
+        {
+            if (requestModel == null)
+                return BadRequest(new { Error = "The request model is required." });
+
+            try
+            {
+                var response = await _albumService.GetAlbumsByArtist(requestModel);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = ex.Message });
+            }
+        }
     }
+
+
 }
