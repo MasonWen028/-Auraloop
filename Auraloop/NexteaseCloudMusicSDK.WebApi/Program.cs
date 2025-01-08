@@ -28,6 +28,7 @@ namespace NexteaseCloudMusicSDK.WebApi
 
             builder.Services.AddScoped<IAlbumService, AlbumService>();
             builder.Services.AddScoped<IArtistService, ArtistService>();
+            builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddSingleton<RequestContext>();
 
             

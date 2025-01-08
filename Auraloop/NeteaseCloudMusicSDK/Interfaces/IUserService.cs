@@ -76,11 +76,8 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves the user's radio programs.
         /// </summary>
-        /// <param name="userId">The unique identifier of the user.</param>
-        /// <param name="limit">The maximum number of programs to retrieve. Default is 30.</param>
-        /// <param name="offset">The offset for pagination. Default is 0.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the user's radio programs.</returns>
-        Task<ApiResponse> Radio(long userId, int limit = 30, int offset = 0);
+        Task<ApiResponse> Radio(UserRadiosRequestModel requestModel);
         /// <summary>
         /// Retrieves the user's event feed with filtering and pagination.
         /// </summary>
@@ -98,20 +95,14 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves the followers (fans) of a specified user.
         /// </summary>
-        /// <param name="userId">The unique identifier of the user.</param>
-        /// <param name="limit">The maximum number of results to retrieve. Default is 30.</param>
-        /// <param name="offset">The offset for pagination. Default is 0.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the list of followers.</returns>
-        Task<ApiResponse> Followeds(long userId, int limit = 30, int offset = 0);
+        Task<ApiResponse> Followeds(UserFollowedsRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the users followed by a specified user.
         /// </summary>
-        /// <param name="userId">The unique identifier of the user.</param>
-        /// <param name="limit">The maximum number of results to retrieve. Default is 30.</param>
-        /// <param name="offset">The offset for pagination. Default is 0.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the list of followed users.</returns>
-        Task<ApiResponse> Follows(long userId, int limit = 30, int offset = 0);
+        Task<ApiResponse> Follows(UserFollowsRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the level details of the current user.
@@ -129,9 +120,9 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Checks whether the specified user is mutually following the current user.
         /// </summary>
-        /// <param name="userId">The unique identifier of the user to check.</param>
+        /// <param name="friendId">The unique identifier of the user to check.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating whether the users are mutually following each other.</returns>
-        Task<ApiResponse> MutualFollow(long userId);
+        Task<ApiResponse> MutualFollow(long friendId);
 
         /// <summary>
         /// Retrieves the user's playlists with pagination.
@@ -140,7 +131,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <param name="limit">The maximum number of results to retrieve. Default is 30.</param>
         /// <param name="offset">The offset for pagination. Default is 0.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the user's playlists.</returns>
-        Task<ApiResponse> Playlist(long userId, int limit = 30, int offset = 0);
+        Task<ApiResponse> Playlist(UserPlaylistRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the user's listening records.
@@ -203,8 +194,9 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Uploads a new avatar for the user.
         /// </summary>
         /// <param name="imageData">The image data for the avatar.</param>
+        /// // <param name="fileName">The image name for the avatar.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the upload result.</returns>
-        Task<ApiResponse> AvatarUpload(byte[] imageData);
+        Task<ApiResponse> AvatarUpload(byte[] imageData, string fileName);
 
         /// <summary>
         /// Activates the user's profile by initializing their nickname.

@@ -15,5 +15,5 @@ public class CellphoneExistenceCheckRequestModel
     /// Gets or sets the country code of the cellphone number.
     /// </summary>
     [JsonProperty("countrycode")]
-    public string CountryCode { get; set; }
+    public string CountryCode { get; set; } = "86";
 }

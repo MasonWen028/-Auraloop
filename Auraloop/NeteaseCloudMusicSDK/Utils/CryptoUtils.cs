@@ -1,5 +1,6 @@
 ﻿using NeteaseCloudMusicSDK.Extensions;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -341,7 +342,12 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
         /// <returns>An object containing the encrypted parameters for the EAPI.</returns>
         public static object Eapi(string url, object data)
         {
-            var text = JsonConvert.SerializeObject(data);
+            var text = JsonConvert.SerializeObject(data, new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver {
+                    IgnoreSerializableAttribute = false
+                }
+            });
             var message = $"nobody{url}use{text}md5forencrypt";
             var digest = message.CalculateMd5();
 

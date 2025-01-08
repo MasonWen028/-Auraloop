@@ -13,4 +13,10 @@ public class UserCommentHistoryRequestModel
 
     [JsonProperty("time")]
     public long Time { get; set; } = 0;
+
+    [JsonProperty("compose_reminder")]
+    public bool ComposeReminder { get; set; } = true;
+
+    [JsonProperty("compose_hot_comment")]
+    public bool ComposeHotComment { get; set; } = true;
 }

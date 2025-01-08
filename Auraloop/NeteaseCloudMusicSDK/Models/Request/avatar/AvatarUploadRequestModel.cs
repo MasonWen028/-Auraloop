@@ -1,7 +1,8 @@
 
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 public class AvatarUploadRequestModel
 {
-// No data fields found
+    public IFormFile ImageData { get; set; }
 }

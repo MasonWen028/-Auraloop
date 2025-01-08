@@ -111,6 +111,17 @@ namespace NeteaseCloudMusicSDK.ApiClient
             return await ApiResponseProcessor.ProcessApiResponse(response);
         }
 
+
+        /// <summary>
+        /// Post data to remote server
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public async Task<HttpResponseMessage> PostAsync(string url, ByteArrayContent data)
+        {
+            return await _client.PostAsync(url, data);
+        }
         //TODO handle response
 
         /// <summary>

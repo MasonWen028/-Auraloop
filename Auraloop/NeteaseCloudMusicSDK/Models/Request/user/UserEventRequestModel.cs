@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 /// </summary>
 public class UserEventRequestModel
 {
-    [JsonProperty("uid")]
+    [JsonIgnore]
     public long UserId { get; set; }
 
     [JsonProperty("limit")]
@@ -13,4 +13,10 @@ public class UserEventRequestModel
 
     [JsonProperty("lasttime")]
     public long LastTime { get; set; } = -1;
+
+    [JsonProperty("total")]
+    public bool Total { get; set; } = true;
+
+    [JsonProperty("getcounts")]
+    public bool GetCounts { get; set; } = true;
 }
