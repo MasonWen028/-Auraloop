@@ -15,5 +15,20 @@ public class ListenTogetherPlayCommandRequestModel
     /// Gets or sets the command information in JSON format.
     /// </summary>
     [JsonProperty("commandInfo")]
-    public string CommandInfo { get; set; }
+    public ListenTogetherPlayCommandInfo CommandInfo { get; set; }
+}
+
+public class ListenTogetherPlayCommandInfo
+{
+    public int commandType { get; set; }
+
+    public int progress { get; set; } = 0;
+
+    public bool playStatus { get; set; }
+
+    public long formerSongId { get; set; }
+
+    public long targetSongId { get; set; }
+
+    public string clientSeq { get; set; }
 }
