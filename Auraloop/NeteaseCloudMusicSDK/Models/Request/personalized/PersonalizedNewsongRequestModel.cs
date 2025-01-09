@@ -16,4 +16,6 @@ public class PersonalizedNewsongRequestModel
     /// </summary>
     [JsonProperty("areaId")]
     public int AreaId { get; set; } = 0;
+
+    const string type = "recommend";
 }

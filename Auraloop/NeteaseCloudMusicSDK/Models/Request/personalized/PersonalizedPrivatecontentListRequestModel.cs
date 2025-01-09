@@ -16,4 +16,6 @@ public class PersonalizedPrivatecontentListRequestModel
     /// </summary>
     [JsonProperty("offset")]
     public int Offset { get; set; } = 0;
+
+    const bool total = true;
 }

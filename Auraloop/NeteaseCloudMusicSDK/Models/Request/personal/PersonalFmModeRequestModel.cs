@@ -9,7 +9,7 @@ public class PersonalFmModeRequestModel
     /// Gets or sets the mode of Personal FM, such as "DEFAULT", "FAMILIAR", "EXPLORE", or "SCENE_RCMD".
     /// </summary>
     [JsonProperty("mode")]
-    public string Mode { get; set; }
+    public string Mode { get; set; } = "DEFAULT";
 
     /// <summary>
     /// Gets or sets the submode for more granular customization, such as "EXERCISE" or "FOCUS".
