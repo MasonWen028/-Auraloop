@@ -11,15 +11,13 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <summary>
         /// Retrieves the lyrics for a currently playing or default song.
         /// </summary>
-        /// <param name="requestModel">The model containing parameters for fetching lyrics.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the lyrics for the song.</returns>
-        Task<ApiResponse> GetLyrics(LyricRequestModel requestModel);
+        Task<ApiResponse> GetLyrics(long songId);
 
         /// <summary>
         /// Retrieves the lyrics for a specific song by its unique identifier, including advanced lyric versions.
         /// </summary>
-        /// <param name="requestModel">The model containing parameters for fetching advanced lyrics.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the lyrics for the specified song.</returns>
-        Task<ApiResponse> GetAdvancedLyrics(LyricNewRequestModel requestModel);
+        Task<ApiResponse> GetAdvancedLyrics(long songId);
     }
 }

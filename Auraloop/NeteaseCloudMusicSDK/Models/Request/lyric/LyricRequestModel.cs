@@ -15,29 +15,29 @@ public class LyricRequestModel
     /// Gets or sets the timestamp for lyric versions. Default is -1.
     /// </summary>
     [JsonProperty("tv")]
-    public int TimestampVersion { get; set; } = -1;
+    const int TimestampVersion = -1;
 
     /// <summary>
     /// Gets or sets the lyric version for standard lyrics. Default is -1.
     /// </summary>
     [JsonProperty("lv")]
-    public int LyricVersion { get; set; } = -1;
+    const int LyricVersion = -1;
 
     /// <summary>
     /// Gets or sets the romanized lyric version. Default is -1.
     /// </summary>
     [JsonProperty("rv")]
-    public int RomanizedVersion { get; set; } = -1;
+    const int RomanizedVersion = -1;
 
     /// <summary>
     /// Gets or sets the karaoke lyric version. Default is -1.
     /// </summary>
     [JsonProperty("kv")]
-    public int KaraokeVersion { get; set; } = -1;
+    const int KaraokeVersion = -1;
 
     /// <summary>
     /// Gets or sets an internal flag for lyric fetching. Default is 1.
     /// </summary>
     [JsonProperty("_nmclfl")]
-    public int InternalFlag { get; set; } = 1;
+    const int InternalFlag = 1;
 }
