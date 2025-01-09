@@ -28,4 +28,26 @@ public class DigitalAlbumOrderRequestModel
     /// </summary>
     [JsonProperty("from")]
     public string From { get; set; } = "web";
+
+    /// <summary>
+    /// json string of DigitalResource list
+    /// </summary>
+    [JsonProperty("digitalResources")]
+    public string DigitalResources { get; set; } = "";
+
+    /// <summary>
+    /// business type
+    /// </summary>
+    public string Business { get; set; } = "Album";
+}
+
+public class DigitalResource
+{
+    public const string Business = "Album";
+
+    [JsonProperty("resourceID")]
+    public long ResourceID { get; set; }
+
+    [JsonProperty("quantity")]
+    public long Quantity { get; set; }
 }
