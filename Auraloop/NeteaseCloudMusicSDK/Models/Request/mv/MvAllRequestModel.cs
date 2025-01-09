@@ -8,20 +8,23 @@ public class MvAllRequestModel
     /// <summary>
     /// Gets or sets the region or area for filtering MVs. Default is "all".
     /// </summary>
+    /// <example>全部</example>
     [JsonProperty("area")]
-    public string Area { get; set; } = "all";
+    public string Area { get; set; } = "全部";
 
     /// <summary>
     /// Gets or sets the type or genre of MVs. Default is "all".
     /// </summary>
+    /// <example>全部</example>
     [JsonProperty("type")]
-    public string Type { get; set; } = "all";
+    public string Type { get; set; } = "全部";
 
     /// <summary>
     /// Gets or sets the order in which to sort MVs. Default is "latest".
     /// </summary>
+    /// <example>上升最快</example>
     [JsonProperty("order")]
-    public string Order { get; set; } = "latest";
+    public string Order { get; set; } = "上升最快";
 
     /// <summary>
     /// Gets or sets the maximum number of results to retrieve. Default is 30.
@@ -34,4 +37,8 @@ public class MvAllRequestModel
     /// </summary>
     [JsonProperty("offset")]
     public int Offset { get; set; } = 0;
+
+    const bool total = true;
 }
+
+
