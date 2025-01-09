@@ -122,6 +122,18 @@ namespace NeteaseCloudMusicSDK.ApiClient
         {
             return await _client.PostAsync(url, data);
         }
+
+        /// <summary>
+        /// Fetch data by get
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public async Task<ApiResponse> GetAsync(string url)
+        {
+            var response = await _client.GetAsync(url);
+            response.EnsureSuccessStatusCode();
+            return await ApiResponseProcessor.ProcessApiResponse(response);
+        }
         //TODO handle response
 
         /// <summary>
