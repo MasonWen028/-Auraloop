@@ -19,7 +19,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Submits listening data for a specific period or event.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the data submission.</returns>
-        Task<ApiResponse> Report();
+        Task<ApiResponse> Report(ListenDataReportRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the songs listened to by the user today.
