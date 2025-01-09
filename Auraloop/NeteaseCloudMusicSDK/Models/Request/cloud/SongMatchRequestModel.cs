@@ -8,18 +8,18 @@ public class SongMatchRequestModel
     /// <summary>
     /// Gets or sets the user ID.
     /// </summary>
-    [JsonProperty("uid")]
+    [JsonProperty("userId")]
     public long UserId { get; set; }
 
     /// <summary>
     /// Gets or sets the song ID in the user's cloud storage.
     /// </summary>
-    [JsonProperty("sid")]
+    [JsonProperty("songId")]
     public long SongId { get; set; }
 
     /// <summary>
     /// Gets or sets an additional song ID for matching purposes.
     /// </summary>
-    [JsonProperty("asid")]
+    [JsonProperty("adjustSongId")]
     public long AdjustedSongId { get; set; }
 }

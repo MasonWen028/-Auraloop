@@ -8,7 +8,7 @@ public class CloudSearchRequestModel
     /// <summary>
     /// Gets or sets the search query or keywords.
     /// </summary>
-    [JsonProperty("keywords")]
+    [JsonProperty("s")]
     public string Keywords { get; set; }
 
     /// <summary>
@@ -24,8 +24,11 @@ public class CloudSearchRequestModel
     public int Offset { get; set; } = 0;
 
     /// <summary>
-    /// Gets or sets the type of content to search for.
+    /// Gets or sets the type of content to search for. 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频
     /// </summary>
     [JsonProperty("type")]
-    public string Type { get; set; } = "all";
+    public string Type { get; set; } = "1";
+
+    [JsonProperty("total")]
+    public bool Total { get; set; } = true;
 }

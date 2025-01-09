@@ -100,15 +100,33 @@ namespace NeteaseCloudMusicSDK.Services
         }
 
         /// <inheritdoc/>
-        public Task<ApiResponse> MatchSong(SongMatchRequestModel requestModel)
+        public async Task<ApiResponse> MatchSong(SongMatchRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var uploadOption = new RequestOptions("/api/cloud/user/song/match", requestModel);
+
+                return await _client.HandleRequestAsync(uploadOption);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to match {requestModel.SongId} and {requestModel.AdjustedSongId}");
+            }           
         }
 
         /// <inheritdoc/>
-        public Task<ApiResponse> Search(CloudSearchRequestModel requestModel)
+        public async Task<ApiResponse> Search(CloudSearchRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var uploadOption = new RequestOptions("/api/cloud/user/song/match", requestModel);
+
+                return await _client.HandleRequestAsync(uploadOption);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to search by keyword {requestModel.Keywords}");
+            }
         }
 
         /// <inheritdoc/>
