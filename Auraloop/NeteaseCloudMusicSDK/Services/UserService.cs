@@ -66,59 +66,66 @@ namespace NeteaseCloudMusicSDK.Services
             }
             try
             {
-                // Step 1: Get key and token
-                var tokenRequestData = new
-                {
-                    bucket = "yyimgs",
-                    ext = "jpg",
-                    filename = fileName,
-                    local = false,
-                    nos_product = 0,
-                    return_body = "{\"code\":200,\"size\":\"$(ObjectSize)\"}",
-                    type = "other"
-                };
+                string docId = await UploadFileAsync(imageData, fileName);
 
-                var tokenOption = new RequestOptions(
-                    "/api/nos/token/alloc",
-                    tokenRequestData);
-
-
-                var tokenResponse = await _client.HandleRequestAsync(tokenOption);
-
-                if (!tokenResponse.IsSuccess)
-                {
-                    throw new Exception("Failed to allocate token for image upload.");
-                }
-
-                var result = tokenResponse.Data;
-
-
-                // Step 2: Upload the image
-                using (var imageContent = new ByteArrayContent(imageData))
-                {
-                    var resultJobj = JObject.Parse(result.ToString());
-                    var token = resultJobj["token"].ToString();
-                    var objectKey = resultJobj["objectKey"].ToString();
-                    var docId = resultJobj["docId"].ToString();
-                    imageContent.Headers.Add("x-nos-token", token);
-                    imageContent.Headers.Add("Content-Type", "image/jpeg");
-
-                    var uploadUrl = $"https://nosup-hz1.127.net/yyimgs/{objectKey}?offset=0&complete=true&version=1.0";
-                    var uploadResponse = await _client.PostAsync(uploadUrl, imageContent);
-
-                    if (!uploadResponse.IsSuccessStatusCode)
-                    {
-                        throw new Exception("Failed to upload image.");
-                    }
-
-                    // Step 3: set the uploaded img as avatar result
-                    var options = new RequestOptions($"/api/user/avatar/upload/v1", new { imgid = docId }, "weapi");
-                    return await _client.HandleRequestAsync(options);
-                }
+                // Step 3: set the uploaded img as avatar result
+                var options = new RequestOptions($"/api/user/avatar/upload/v1", new { imgid = docId }, "weapi");
+                return await _client.HandleRequestAsync(options);
             }
             catch (Exception ex)
             {
                 throw new Exception("Failed to upload avatar.", ex);
+            }
+        }
+
+        private async Task<string> UploadFileAsync(byte[] imageData, string fileName)
+        {
+            // Step 1: Get key and token
+            var tokenRequestData = new
+            {
+                bucket = "yyimgs",
+                ext = "jpg",
+                filename = fileName,
+                local = false,
+                nos_product = 0,
+                return_body = "{\"code\":200,\"size\":\"$(ObjectSize)\"}",
+                type = "other"
+            };
+
+            var tokenOption = new RequestOptions(
+                "/api/nos/token/alloc",
+                tokenRequestData);
+
+
+            var tokenResponse = await _client.HandleRequestAsync(tokenOption);
+
+            if (!tokenResponse.IsSuccess)
+            {
+                throw new Exception("Failed to allocate token for image upload.");
+            }
+
+            var result = tokenResponse.Data;
+
+
+            // Step 2: Upload the image
+            using (var imageContent = new ByteArrayContent(imageData))
+            {
+                var resultJobj = JObject.Parse(result.ToString());
+                var token = resultJobj["token"].ToString();
+                var objectKey = resultJobj["objectKey"].ToString();
+                var docId = resultJobj["docId"].ToString();
+                imageContent.Headers.Add("x-nos-token", token);
+                imageContent.Headers.Add("Content-Type", "image/jpeg");
+
+                var uploadUrl = $"https://nosup-hz1.127.net/yyimgs/{objectKey}?offset=0&complete=true&version=1.0";
+                var uploadResponse = await _client.PostAsync(uploadUrl, imageContent);
+
+                if (!uploadResponse.IsSuccessStatusCode)
+                {
+                    throw new Exception("Failed to upload image.");
+                }
+
+                return docId;
             }
         }
 

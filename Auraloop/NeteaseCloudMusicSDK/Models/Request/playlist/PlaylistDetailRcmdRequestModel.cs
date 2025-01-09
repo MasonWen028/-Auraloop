@@ -16,12 +16,12 @@ public class PlaylistDetailRcmdRequestModel
     /// Default is "playlist_head".
     /// </summary>
     [JsonProperty("scene")]
-    public string Scene { get; set; } = "playlist_head";
+    const string Scene = "playlist_head";
 
     /// <summary>
     /// Gets or sets a flag indicating whether to use the new style.
     /// Default is "true".
     /// </summary>
     [JsonProperty("newStyle")]
-    public string NewStyle { get; set; } = "true";
+    const string NewStyle = "true";
 }
