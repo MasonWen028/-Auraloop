@@ -25,6 +25,6 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <param name="Captcha">The captcha code entered by the user.</param>
         /// <param name="Ctcode">The country code for the phone number. Default is 86 (China).</param>
         /// <returns>An <see cref="ApiResponse"/> indicating whether the captcha verification was successful.</returns>
-        Task<ApiResponse> CaptchaVerify(long Phone, int Captcha, int Ctcode = 86);
+        Task<ApiResponse> CaptchaVerify(CaptchaVerifyRequestModel requestModel);
     }
 }
