@@ -8,13 +8,13 @@ public class CommentHugListRequestModel
     [JsonProperty("commentId")]
     public string CommentId { get; set; }
     [JsonProperty("cursor")]
-    public string Cursor { get; set; }
+    public string Cursor { get; set; } = "-1";
     [JsonProperty("threadId")]
     public string ThreadId { get; set; }
     [JsonProperty("pageNo")]
-    public int PageNo { get; set; }
+    public int PageNo { get; set; } = 1;
     [JsonProperty("idCursor")]
-    public int IdCursor { get; set; }
+    public int IdCursor { get; set; } = -1;
     [JsonProperty("pageSize")]
-    public int PageSize { get; set; }
+    public int PageSize { get; set; } = 100;
 }

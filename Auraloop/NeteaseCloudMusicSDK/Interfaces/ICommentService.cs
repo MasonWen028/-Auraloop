@@ -48,7 +48,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The request model containing parameters for fetching hot comments.</param>
         /// <returns>An <see cref="ApiResponse"/> containing hot comments.</returns>
-        Task<ApiResponse> GetHotComments(CommentHotRequestModel requestModel);
+        Task<ApiResponse> GetHotComments(CommentRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the list of users who liked a specific comment.

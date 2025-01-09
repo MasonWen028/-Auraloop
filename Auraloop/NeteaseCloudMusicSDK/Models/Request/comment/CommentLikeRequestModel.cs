@@ -9,8 +9,11 @@ public class CommentLikeRequestModel
     /// <summary>
     /// The ID of the corresponding resource.
     /// </summary>
-    [JsonProperty("id")]
+    [JsonProperty("commentId")]
     public long Id { get; set; }
+
+    [JsonProperty("threadId")]
+    public string threadId { get; set; } = "";
 
     /// <summary>
     /// The operation type: 

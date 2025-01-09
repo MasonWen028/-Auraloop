@@ -35,26 +35,39 @@ public class CommentNewRequestModel
     /// <summary>
     /// Pagination parameter, the page number to fetch. Default is 1.
     /// </summary>
+    [JsonProperty("pageNo")]
     public int PageNo { get; set; } = 1;
 
     /// <summary>
     /// Pagination parameter, the number of items per page. Default is 20.
     /// </summary>
+    [JsonProperty("pageSize")]
     public int PageSize { get; set; } = 20;
 
     /// <summary>
     /// Sorting type: 
-    /// 1 - By recommendation, 
-    /// 2 - By popularity, 
+    /// 99 - By recommendation (default),
+    /// 2 - By popularity,
     /// 3 - By time.
-    /// </summary>
-    public SortType SortType { get; set; } = SortType.Recommendation;
+    /// </summary>    
+    [JsonProperty("sortType")]
+    public int SortType { get; set; }
 
     /// <summary>
     /// When SortType is 3 and the page number is not the first page, 
     /// this value should be the time of the previous item.
     /// </summary>
-    public long? Cursor { get; set; }
+    [JsonProperty("cursor")]
+    public string Cursor { get; set; } = "";
+
+    /// <summary>
+    /// Whether to show inner comments. Defaults to true.
+    /// </summary>
+    [JsonProperty("showInner")]
+    public bool ShowInner { get; set; } = true;
+
+    [JsonProperty("threadId")]
+    public string ThreadId { get; set; }
 }
 
 /// <summary>

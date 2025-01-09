@@ -28,4 +28,10 @@ public class CommentManageRequestModel
     /// </summary>
     [JsonProperty("commentId")]
     public long? CommentId { get; set; }
+
+    /// <summary>
+    /// The type of the corresponding resource.
+    /// </summary>
+    [JsonProperty("type")]
+    public ResourceType Type { get; set; }
 }
