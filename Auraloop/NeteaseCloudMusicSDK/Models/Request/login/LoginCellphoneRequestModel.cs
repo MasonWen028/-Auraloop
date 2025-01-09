@@ -22,4 +22,22 @@ public class LoginCellphoneRequestModel
     /// </summary>
     [JsonProperty("password")]
     public string PasswordOrCaptcha { get; set; }
+
+    [JsonProperty("type")]
+    public string Type { get; set; } = "1";
+
+    [JsonProperty("https")]
+    public string Https { get; set; } = "true";
+
+    [JsonProperty("captch")]
+    public int Captch { get; set; }
+
+    [JsonProperty("password")]
+    public string Password { get; set; }
+
+    [JsonProperty("md5_password")]
+    public string PasswordMd5ed { get; set; }
+
+    [JsonProperty("rememberLogin")]
+    public string RememberLogin { get; set; } = "true";
 }

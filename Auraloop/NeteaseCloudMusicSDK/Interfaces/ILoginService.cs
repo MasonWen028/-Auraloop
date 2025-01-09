@@ -12,7 +12,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Logs in using default credentials or session cookies.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the login attempt.</returns>
-        Task<ApiResponse> Login();
+        Task<ApiResponse> Login(LoginRequestModel requestModel);
 
         /// <summary>
         /// Logs in using a cellphone number and verification details.
@@ -20,13 +20,6 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// <param name="requestModel">The request model containing the cellphone number and password or verification code.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the login attempt.</returns>
         Task<ApiResponse> LoginCellphone(LoginCellphoneRequestModel requestModel);
-
-        /// <summary>
-        /// Logs in using an email address and password.
-        /// </summary>
-        /// <param name="requestModel">The request model containing email and password details.</param>
-        /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the login attempt.</returns>
-        Task<ApiResponse> LoginEmail(LoginEmailRequestModel requestModel);
 
         /// <summary>
         /// Checks the status of a QR code login attempt.
