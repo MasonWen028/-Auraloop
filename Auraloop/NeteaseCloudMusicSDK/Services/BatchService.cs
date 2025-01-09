@@ -37,7 +37,7 @@ namespace NeteaseCloudMusicSDK.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get banner ad. for home page.", ex);
+                throw new Exception($"Failed to execute batch api.", ex);
             }
         }
     }
