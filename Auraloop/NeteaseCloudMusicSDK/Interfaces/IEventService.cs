@@ -12,7 +12,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Retrieves a list of social dynamics or activities.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the list of social dynamics and related details.</returns>
-        Task<ApiResponse> GetDynamics();
+        Task<ApiResponse> GetDynamics(int limit, long lastTime);
 
         /// <summary>
         /// Deletes a specific social dynamic created by the user.
