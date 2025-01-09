@@ -16,4 +16,6 @@ public class MsgPrivateRequestModel
     /// </summary>
     [JsonProperty("limit")]
     public int Limit { get; set; } = 30;
+
+    const bool total = true;
 }

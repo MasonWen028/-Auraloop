@@ -22,4 +22,6 @@ public class MsgPrivateHistoryRequestModel
     /// </summary>
     [JsonProperty("time")]
     public long BeforeTime { get; set; } = 0;
+
+    const bool total = true;
 }

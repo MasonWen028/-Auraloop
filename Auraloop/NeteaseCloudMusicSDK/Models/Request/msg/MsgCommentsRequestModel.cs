@@ -22,4 +22,6 @@ public class MsgCommentsRequestModel
     /// </summary>
     [JsonProperty("limit")]
     public int Limit { get; set; } = 30;
+
+    const string total = "true";
 }
