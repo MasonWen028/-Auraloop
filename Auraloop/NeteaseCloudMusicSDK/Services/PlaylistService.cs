@@ -5,6 +5,7 @@ using NeteaseCloudMusicSDK.Models.Response;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -214,79 +215,357 @@ namespace NeteaseCloudMusicSDK.Services
             }
         }
 
-        public Task<ApiResponse> HighqualityTags()
+        /// <summary>
+        /// Fetch high quality tags for playlist
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> HighqualityTags()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/highquality/tags", null, "weapi");
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch high quality tags for playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> Hot()
+
+        /// <summary>
+        /// Fetch hot categories of playlist
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> Hot()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/hottags", null, "weapi");
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch hot categories of playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> ImportNameTaskCreate(PlaylistImportNameTaskRequestModel requestModel)
+        /// <summary>
+        /// Import playlist by data/text/link
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> ImportNameTaskCreate(PlaylistImportNameTaskRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/import/name/task/create", ImportPlaylistDataProcess(requestModel), "weapi");
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to import playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> MyLike(PlaylistMyLikeRequestModel requestModel)
+        /// <summary>
+        /// Process the data for importing a playlist
+        /// </summary>
+        /// <param name="queryModel"></param>
+        /// <returns></returns>
+        private static ImportPlaylistParameter ImportPlaylistDataProcess(PlaylistImportNameTaskRequestModel queryModel)
         {
-            throw new NotImplementedException();
+            var data = new ImportPlaylistParameter
+            {
+                ImportStarPlaylist = queryModel.ImportStarPlaylist
+            };
+
+            if (!string.IsNullOrEmpty(queryModel.Local))
+            {
+                var local = Newtonsoft.Json.JsonConvert.DeserializeObject<List<dynamic>>(queryModel.Local);
+                data.MultiSongs = Newtonsoft.Json.JsonConvert.SerializeObject(
+                    local.Select(e => new
+                    {
+                        SongName = e.name,
+                        ArtistName = e.artist,
+                        AlbumName = e.album
+                    })
+                );
+            }
+            else
+            {
+                var playlistName = queryModel.PlaylistName ?? "导入音乐 " + DateTime.Now.ToString("g");
+                var songs = string.Empty;
+
+                if (!string.IsNullOrEmpty(queryModel.Text))
+                {
+                    songs = Newtonsoft.Json.JsonConvert.SerializeObject(new[]
+                    {
+                    new
+                    {
+                        Name = playlistName,
+                        Type = string.Empty,
+                        Url = $"rpc://playlist/import?text={Uri.EscapeUriString(queryModel.Text)}"
+                    }
+                });
+                }
+                else if (!string.IsNullOrEmpty(queryModel.Link))
+                {
+                    var links = Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(queryModel.Link);
+                    songs = Newtonsoft.Json.JsonConvert.SerializeObject(
+                        links.Select(e => new
+                        {
+                            Name = playlistName,
+                            Type = string.Empty,
+                            Url = Uri.EscapeUriString(e)
+                        })
+                    );
+                }
+
+                data.PlaylistName = playlistName;
+                data.CreateBusinessCode = null;
+                data.ExtParam = null;
+                data.TaskIdForLog = string.Empty;
+                data.Songs = songs;
+            }
+
+            return data;
         }
 
-        public Task<ApiResponse> NameUpdate(PlaylistNameUpdateRequestModel requestModel)
+
+        /// <summary>
+        /// Fetch the playlist liked
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> MyLike(PlaylistMyLikeRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/mlog/playlist/mylike/bytime/get", requestModel, "weapi");
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch liked playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> OrderUpdate(PlaylistOrderUpdateRequestModel requestModel)
+        /// <summary>
+        /// Update the name of playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> NameUpdate(PlaylistNameUpdateRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/update/name", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update the name of playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> PlaylistImportTaskStatus(long id)
+
+        /// <summary>
+        /// Edit the showing order of playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> OrderUpdate(PlaylistOrderUpdateRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/order/update", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update the name of playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> Privacy(PlaylistPrivacyRequestModel requestModel)
+        /// <summary>
+        /// Fetch the status of playlist import task
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> PlaylistImportTaskStatus(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/order/update", new { taskIds = $"[{id}]" });
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch the status of playlist import task.", ex);
+            }
         }
 
-        public Task<ApiResponse> Subscribe(PlaylistSubscribeRequestModel requestModel)
+        /// <summary>
+        /// Publish current privacy playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> Privacy(PlaylistPrivacyRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions("/api/playlist/update/privacy", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch the status of playlist import task.", ex);
+            }
         }
 
-        public Task<ApiResponse> Subscribers(PlaylistSubscribersRequestModel requestModel)
+
+        /// <summary>
+        /// Sub and Unsub playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> Subscribe(PlaylistSubscribeRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            string subOrNot = requestModel.Operation == 1 ? "subscribe" : "unsubscribe";
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/{subOrNot}", new { id = requestModel.PlaylistId });
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to {subOrNot}  playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> TagsUpdate(PlaylistTagsUpdateRequestModel requestModel)
+        /// <summary>
+        /// Fetch subsribers for playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> Subscribers(PlaylistSubscribersRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/subscribers", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch subsribers for  playlist with ID: {requestModel.PlaylistId}.", ex);
+            }
         }
 
-        public Task<ApiResponse> tDetail(PlaylistDetailRequestModel requestModel)
+        /// <summary>
+        /// Update the tags of playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> TagsUpdate(PlaylistTagsUpdateRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/subscribers", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to update the tags of playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> TrackAdd(PlaylistTrackAddRequestModel requestModel)
+
+        /// <summary>
+        /// Fetch details of playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> tDetail(PlaylistDetailRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/v6/playlist/detail", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch details of playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> TrackAll(PlaylistTrackAllRequestModel requestModel)
+        /// <summary>
+        /// Add tracks into playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> TrackAdd(PlaylistTrackAddRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/track/add", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to add tracks into playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> TrackDelete(PlaylistTrackDeleteRequestModel requestModel)
+        /// <summary>
+        /// Fetch all songs in playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> TrackAll(PlaylistTrackAllRequestModel requestModel)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/v6/playlist/detail", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fetch songs from playlist with ID: {requestModel.PlaylistId}", ex);
+            }
+        }
+
+        /// <summary>
+        /// Remove songs from playlist
+        /// </summary>
+        /// <param name="requestModel"></param>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
+        public async Task<ApiResponse> TrackDelete(PlaylistTrackAddRequestModel requestModel)
+        {
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/track/delete", requestModel);
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to remove tracks into playlist.", ex);
+            }
         }
 
         public Task<ApiResponse> TracksManipulate(PlaylistTracksManipulateRequestModel requestModel)
@@ -299,14 +578,41 @@ namespace NeteaseCloudMusicSDK.Services
             throw new NotImplementedException();
         }
 
-        public Task<ApiResponse> UpdatePlaycount(long id)
+        /// <summary>
+        /// Update the play count for playlist
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> UpdatePlaycount(long id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/update/playcount", new { id });
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to remove tracks into playlist.", ex);
+            }
         }
 
-        public Task<ApiResponse> VideoRecent()
+        /// <summary>
+        /// Fetch video added recently
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public async Task<ApiResponse> VideoRecent()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var options = new RequestOptions($"/api/playlist/update/playcount", null, "weapi"); 
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to remove tracks into playlist.", ex);
+            }
         }
     }
 }

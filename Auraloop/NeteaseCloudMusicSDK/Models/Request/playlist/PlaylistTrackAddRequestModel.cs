@@ -15,5 +15,13 @@ public class PlaylistTrackAddRequestModel
     /// Gets or sets the track IDs to add.
     /// </summary>
     [JsonProperty("tracks")]
-    public long[] TrackIds { get; set; }
+    public TrackModel[] TrackIds { get; set; }
+}
+
+public class TrackModel
+{
+    const int type = 3;
+
+    [JsonProperty("id")]
+    public long Id { get; set; }
 }

@@ -31,4 +31,48 @@ public class PlaylistImportNameTaskRequestModel
     /// </summary>
     [JsonProperty("link")]
     public string Link { get; set; }
+
+    /// <summary>
+    /// Name of the playlist to be created or imported.
+    /// </summary>
+    public string PlaylistName { get; set; }
 }
+
+public class ImportPlaylistParameter
+{
+    /// <summary>
+    /// Indicates whether to import the "Liked Songs" playlist.
+    /// </summary>
+    public bool ImportStarPlaylist { get; set; }
+
+    /// <summary>
+    /// Contains JSON-formatted metadata for multiple songs.
+    /// </summary>
+    public string MultiSongs { get; set; }
+
+    /// <summary>
+    /// Name of the playlist to be created or imported.
+    /// </summary>
+    public string PlaylistName { get; set; }
+
+    /// <summary>
+    /// Optional business code for the playlist creation process.
+    /// </summary>
+    public string CreateBusinessCode { get; set; }
+
+    /// <summary>
+    /// Optional external parameters for additional configurations.
+    /// </summary>
+    public string ExtParam { get; set; }
+
+    /// <summary>
+    /// Task identifier used for logging purposes.
+    /// </summary>
+    public string TaskIdForLog { get; set; }
+
+    /// <summary>
+    /// JSON-formatted string representing songs to be imported.
+    /// </summary>
+    public string Songs { get; set; }
+}
+

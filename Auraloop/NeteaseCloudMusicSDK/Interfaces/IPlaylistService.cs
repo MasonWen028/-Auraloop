@@ -166,7 +166,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The model containing the playlist ID and tracks to remove.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the removal.</returns>
-        Task<ApiResponse> TrackDelete(PlaylistTrackDeleteRequestModel requestModel);
+        Task<ApiResponse> TrackDelete(PlaylistTrackAddRequestModel requestModel);
 
         /// <summary>
         /// Updates the playlist's name, tags, and description.
