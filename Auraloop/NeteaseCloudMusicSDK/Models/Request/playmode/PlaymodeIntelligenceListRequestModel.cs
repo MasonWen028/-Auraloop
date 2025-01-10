@@ -28,4 +28,6 @@ public class PlaymodeIntelligenceListRequestModel
     /// </summary>
     [JsonProperty("count")]
     public int Count { get; set; } = 1;
+
+    const string type = "fromPlayOne";
 }
