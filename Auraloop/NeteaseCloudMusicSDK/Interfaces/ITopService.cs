@@ -28,7 +28,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="id">The unique identifier of the top list.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the top list details.</returns>
-        Task<ApiResponse> List(int id);
+        Task<ApiResponse> List(long id);
 
         /// <summary>
         /// Retrieves a list of top MVs.
