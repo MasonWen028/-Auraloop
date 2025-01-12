@@ -9,5 +9,5 @@ public class SummaryAnnualRequestModel
     /// Gets or sets the year for which to retrieve the summary.
     /// </summary>
     [JsonProperty("year")]
-    public string Year { get; set; }
+    public int Year { get; set; }
 }
