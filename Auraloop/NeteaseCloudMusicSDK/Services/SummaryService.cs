@@ -26,12 +26,14 @@ namespace NeteaseCloudMusicSDK.Services
         /// <param name="requestModel"></param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
-        public Task<ApiResponse> SummaryAnnual(SummaryAnnualRequestModel requestModel)
+        public async Task<ApiResponse> SummaryAnnual(SummaryAnnualRequestModel requestModel)
         {
             try
             {
                 string dataType = (requestModel.Year == 2017 || requestModel.Year == 2018 || requestModel.Year == 2019) ? "userdata" : "data";
                 var option = new RequestOptions($"/api/activity/summary/annual/{requestModel.Year}/{dataType}");
+
+                return await _client.HandleRequestAsync(option);
             }
             catch (Exception ex)
             {
