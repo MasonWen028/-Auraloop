@@ -13,4 +13,6 @@ public class SendAlbumRequestModel
 
     [JsonProperty("userIds")]
     public string[] UserIds { get; set; }
+
+    const string type = "album";
 }

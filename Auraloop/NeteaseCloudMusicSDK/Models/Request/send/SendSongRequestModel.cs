@@ -13,4 +13,6 @@ public class SendSongRequestModel
 
     [JsonProperty("userIds")]
     public string[] UserIds { get; set; }
+
+    const string type = "song";
 }

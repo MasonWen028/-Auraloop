@@ -10,4 +10,6 @@ public class SendTextRequestModel
 
     [JsonProperty("userIds")]
     public string[] UserIds { get; set; }
+
+    const string type = "text";
 }

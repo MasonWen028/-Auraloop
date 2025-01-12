@@ -13,4 +13,6 @@ public class SendPlaylistRequestModel
 
     [JsonProperty("userIds")]
     public string[] UserIds { get; set; }
+
+    const string type = "playlist";
 }
