@@ -10,5 +10,5 @@ public class ToplistArtistRequestModel
     [JsonProperty("offset")]
     public int Offset { get; set; }
     [JsonProperty("total")]
-    public bool Total { get; set; }
+    const bool Total = true;
 }

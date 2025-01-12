@@ -8,7 +8,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
     public interface IToplistService
     {
         Task<ApiResponse> Toplist();
-        Task<ApiResponse> ToplistArtist();
+        Task<ApiResponse> ToplistArtist(ToplistArtistRequestModel requestModel);
         Task<ApiResponse> ToplistDetail();
     }
 }
