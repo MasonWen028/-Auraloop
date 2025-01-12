@@ -13,7 +13,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// Performs a general search across all content types.
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the search results.</returns>
-        Task<ApiResponse> Search();
+        Task<ApiResponse> Search(SearchInputModel requestModel);
 
         /// <summary>
         /// Retrieves the default search suggestion or trending search term.
