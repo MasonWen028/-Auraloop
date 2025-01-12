@@ -8,7 +8,7 @@ public class SongUrlV1RequestModel
     [JsonProperty("level")]
     public string Level { get; set; }
     [JsonProperty("encodeType")]
-    public string EncodeType { get; set; }
+    const string EncodeType = "flac";
 
     [JsonProperty("immerseType")]
     public string ImmerseType { get; set; }

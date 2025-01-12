@@ -9,5 +9,5 @@ public class PaginatedRequestModel
     public int Offset { get; set; } = 0;
 
     [JsonProperty("total")]
-    public bool Total { get; set; } = true;
+    const bool Total  = true;
 }
