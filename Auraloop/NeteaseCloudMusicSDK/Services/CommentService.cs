@@ -239,7 +239,7 @@ namespace NeteaseCloudMusicSDK.Services
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to get playlist comments  with ID '{requestModel.Id}'.", ex);
+                throw new Exception($"Failed to get playlist comments  with ID '{requestModel.CommentId}'.", ex);
             }
             
         }
