@@ -20,7 +20,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// step 4: convert strToBase64 to base64,username = strToBase64
         /// </param>
         /// <returns></returns>
-        Task<ApiResponse> RegisterAnonymous(string username);
+        Task<ApiResponse> RegisterAnonymous();
 
         /// <summary>
         /// Registers a user account using a cellphone number.
