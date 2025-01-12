@@ -13,8 +13,8 @@ public class RadioSubscriptionRequestModel
 
     /// <summary>
     /// Gets or sets the type of subscription operation.
-    /// Possible values: "sub" for subscribing or "unsub" for unsubscribing.
+    /// Possible values: 1 for subscribing or other number for unsubscribing.
     /// </summary>
     [JsonProperty("subOpType")]
-    public string SubscriptionType { get; set; } = "sub";
+    public int SubscriptionType { get; set; } = 1;
 }
