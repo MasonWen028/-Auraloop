@@ -9,5 +9,5 @@ public class VideoTimelineRequestModel
     public bool NeedPreviewUrl { get; set; } = true;
 
     [JsonProperty("total")]
-    public bool Total { get; set; } = true;
+    const bool Total = true;
 }
