@@ -26,7 +26,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="taskIds">The list of task IDs for which to claim rewards.</param>
         /// <returns>An <see cref="ApiResponse"/> indicating the success or failure of the claim operation.</returns>
-        Task<ApiResponse> GrowthPointGet(long[] taskIds);
+        Task<ApiResponse> GrowthPointGet(VipGrowthpointGetRequestModel requestModel);
 
         /// <summary>
         /// Retrieves the user's VIP information.
