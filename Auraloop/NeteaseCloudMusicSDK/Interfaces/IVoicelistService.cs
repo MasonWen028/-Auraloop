@@ -27,7 +27,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The model containing search parameters for voices.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the search results.</returns>
-        Task<ApiResponse> ListSearch(VoiceListSearchRequestModel requestModel);
+        Task<ApiResponse> ListSearch(VoiceListSearchModel requestModel);
 
         /// <summary>
         /// Searches for voice lists by podcast name.

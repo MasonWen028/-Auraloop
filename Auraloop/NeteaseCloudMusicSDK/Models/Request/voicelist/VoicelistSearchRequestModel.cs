@@ -23,3 +23,19 @@ public class VoiceListSearchRequestModel
     [JsonProperty("offset")]
     public int Offset { get; set; } = 0;
 }
+
+
+public class VoiceListSearchModel
+{
+    const int fee = -1;
+
+    [JsonProperty("limit")]
+    public int Limit { get; set; } = 200;
+
+    [JsonProperty("offset")]
+    public int Offset { get; set; } = 0;
+
+
+    [JsonProperty("podcastName")]
+    public string PodcastName { get; set; }
+}
