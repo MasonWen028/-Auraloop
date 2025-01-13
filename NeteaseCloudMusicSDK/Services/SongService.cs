@@ -256,11 +256,6 @@ namespace NeteaseCloudMusicSDK.Services
         {
             try
             {
-                if (requestModel.Level == "sky")
-                {
-                    requestModel.ImmerseType = "c51";
-                }
-
                 var option = new RequestOptions("/api/song/enhance/player/url", requestModel);
 
                 return await _client.HandleRequestAsync(option);

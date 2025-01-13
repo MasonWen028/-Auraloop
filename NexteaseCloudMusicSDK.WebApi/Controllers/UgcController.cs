@@ -7,7 +7,7 @@ using NeteaseCloudMusicSDK.ApiClient;
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class UgcController : Controller
     {
         private readonly IUgcService _ugcService;

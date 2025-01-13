@@ -3,12 +3,52 @@
   "WorkspaceRootPath": "H:\\Projects\\Auraloop\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\models\\request\\song\\songurlrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\models\\request\\song\\songurlrequestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\nexteasecloudmusicsdk.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\nexteasecloudmusicsdk.webapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\controllers\\songcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\controllers\\songcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\services\\songservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\services\\songservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\apiclient\\neteaseapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\apiclient\\neteaseapiclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\models\\request\\song\\songurlv1requestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\models\\request\\song\\songurlv1requestmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\services\\searchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\services\\searchservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\controllers\\searchcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\controllers\\playlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\controllers\\playlistcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\services\\playlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\services\\playlistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|h:\\projects\\auraloop\\neteasecloudmusicsdk\\interfaces\\iplaylistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{793C8A51-AB5F-455F-8F88-7749928BCF8C}|NeteaseCloudMusicSDK\\NeteaseCloudMusicSDK.csproj|solutionrelative:neteasecloudmusicsdk\\interfaces\\iplaylistservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\controllers\\albumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\controllers\\albumcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|h:\\projects\\auraloop\\nexteasecloudmusicsdk.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1099465C-36B1-4E3A-B949-51045635CC7D}|NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj|solutionrelative:nexteasecloudmusicsdk.webapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,27 +63,157 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Program.cs",
-              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\Program.cs",
-              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Program.cs",
-              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\Program.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAAEYAAAABAAAAAAAAAA==",
+              "Title": "SongUrlRequestModel.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlRequestModel.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlRequestModel.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlRequestModel.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlRequestModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-13T10:29:37.994Z",
+              "WhenOpened": "2025-01-13T12:59:58.266Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NetEaseApiClient.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\ApiClient\\NetEaseApiClient.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\ApiClient\\NetEaseApiClient.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\ApiClient\\NetEaseApiClient.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\ApiClient\\NetEaseApiClient.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAArwFAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:39:51.65Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SongService.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Services\\SongService.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\Services\\SongService.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Services\\SongService.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\Services\\SongService.cs",
+              "ViewState": "AgIAAOEAAAAAAAAAAAAiwP8AAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:30:03.966Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "NexteaseCloudMusicSDK.WebApi",
-              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj",
-              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj",
-              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj",
-              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\NexteaseCloudMusicSDK.WebApi.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-01-13T10:29:34.997Z",
+              "Title": "SongController.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\SongController.cs",
+              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\Controllers\\SongController.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\SongController.cs",
+              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\Controllers\\SongController.cs",
+              "ViewState": "AgIAAKYAAAAAAAAAAADwv8MAAABBAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:25:48.682Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "SongUrlV1RequestModel.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlV1RequestModel.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlV1RequestModel.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlV1RequestModel.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\Models\\Request\\song\\SongUrlV1RequestModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:29:45.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SearchController.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\SearchController.cs",
+              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\Controllers\\SearchController.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\SearchController.cs",
+              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\Controllers\\SearchController.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAiwEsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:19:00.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SearchService.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Services\\SearchService.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\Services\\SearchService.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Services\\SearchService.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\Services\\SearchService.cs",
+              "ViewState": "AgIAAD4AAAAAAAAAAAAIwFUAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:18:35.216Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PlaylistService.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Services\\PlaylistService.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\Services\\PlaylistService.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Services\\PlaylistService.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\Services\\PlaylistService.cs",
+              "ViewState": "AgIAANcBAAAAAAAAAAArwPYBAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:06:45.797Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IPlaylistService.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Interfaces\\IPlaylistService.cs",
+              "RelativeDocumentMoniker": "NeteaseCloudMusicSDK\\Interfaces\\IPlaylistService.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NeteaseCloudMusicSDK\\Interfaces\\IPlaylistService.cs",
+              "RelativeToolTip": "NeteaseCloudMusicSDK\\Interfaces\\IPlaylistService.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAADgvysAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:06:11.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlaylistController.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\PlaylistController.cs",
+              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\Controllers\\PlaylistController.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\PlaylistController.cs",
+              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\Controllers\\PlaylistController.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAcwG4AAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:06:02.059Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AlbumController.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\AlbumController.cs",
+              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\Controllers\\AlbumController.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Controllers\\AlbumController.cs",
+              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\Controllers\\AlbumController.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAgwCAAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T12:04:09.426Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Program.cs",
+              "DocumentMoniker": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Program.cs",
+              "RelativeDocumentMoniker": "NexteaseCloudMusicSDK.WebApi\\Program.cs",
+              "ToolTip": "H:\\Projects\\Auraloop\\NexteaseCloudMusicSDK.WebApi\\Program.cs",
+              "RelativeToolTip": "NexteaseCloudMusicSDK.WebApi\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-13T11:00:56.344Z",
               "EditorCaption": ""
             }
           ]

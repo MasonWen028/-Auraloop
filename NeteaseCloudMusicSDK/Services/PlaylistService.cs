@@ -498,7 +498,7 @@ namespace NeteaseCloudMusicSDK.Services
         /// <param name="requestModel"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public async Task<ApiResponse> tDetail(PlaylistDetailRequestModel requestModel)
+        public async Task<ApiResponse> Detail(PlaylistDetailRequestModel requestModel)
         {
             try
             {

@@ -7,7 +7,7 @@ using NeteaseCloudMusicSDK.ApiClient;
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ShareController : Controller
     {
         private readonly IShareService _shareService;

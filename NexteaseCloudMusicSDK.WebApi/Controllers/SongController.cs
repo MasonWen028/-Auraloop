@@ -7,7 +7,7 @@ using NeteaseCloudMusicSDK.ApiClient;
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class SongController : Controller
     {
         private readonly ISongService _songService;
@@ -193,7 +193,7 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
         /// 
         /// </summary>
         [HttpPost("url")]
-        public async Task<IActionResult> Url([FromBody] SongUrlRequestModel requestModel)
+        public async Task<IActionResult> Ur([FromBody] SongUrlRequestModel requestModel)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
         /// <summary>
         /// 
         /// </summary>
-        [HttpPost("urlv1")]
+        [HttpPost("url/v1")]
         public async Task<IActionResult> UrlV1([FromBody] SongUrlV1RequestModel requestModel)
         {
             try

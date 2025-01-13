@@ -48,7 +48,7 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <param name="requestModel">The model containing the request details for the playlist.</param>
         /// <returns>An <see cref="ApiResponse"/> containing the playlist details.</returns>
-        Task<ApiResponse> tDetail(PlaylistDetailRequestModel requestModel);
+        Task<ApiResponse> Detail(PlaylistDetailRequestModel requestModel);
 
         /// <summary>
         /// Retrieves dynamic details for a playlist, such as play count and subscribers.

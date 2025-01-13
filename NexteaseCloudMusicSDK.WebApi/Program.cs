@@ -1,8 +1,8 @@
+using Microsoft.OpenApi.Models;
 using NeteaseCloudMusicApi_SDK.Interfaces;
 using NeteaseCloudMusicSDK.ApiClient;
 using NeteaseCloudMusicSDK.Services;
 using NexteaseCloudMusicSDK.WebApi.Middlewares;
-using Scriban;
 using System.Reflection;
 
 
@@ -27,7 +27,7 @@ namespace NexteaseCloudMusicSDK.WebApi
                 });
             });
 
-            builder.Services.AddHttpClient<NetEaseApiClient>();            
+            builder.Services.AddHttpClient<NetEaseApiClient>();
             builder.Services.AddSingleton<RequestContext>();
 
 
@@ -42,7 +42,7 @@ namespace NexteaseCloudMusicSDK.WebApi
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            
+
 
             var app = builder.Build();
 
@@ -66,5 +66,6 @@ namespace NexteaseCloudMusicSDK.WebApi
 
             app.Run();
         }
+
     }
 }

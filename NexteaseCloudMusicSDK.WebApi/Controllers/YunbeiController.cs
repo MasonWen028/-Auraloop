@@ -8,7 +8,7 @@ using NeteaseCloudMusicSDK.Models.Request.yunbei;
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class YunbeiController : Controller
     {
         private readonly IYunbeiService _yunbeiService;

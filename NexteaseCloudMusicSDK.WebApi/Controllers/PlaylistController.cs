@@ -7,7 +7,7 @@ using NeteaseCloudMusicSDK.ApiClient;
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class PlaylistController : Controller
     {
         private readonly IPlaylistService _playlistService;
@@ -107,12 +107,12 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
         /// <summary>
         /// 
         /// </summary>
-        [HttpPost("tdetail")]
-        public async Task<IActionResult> tDetail([FromBody] PlaylistDetailRequestModel requestModel)
+        [HttpPost("detail")]
+        public async Task<IActionResult> Detail([FromBody] PlaylistDetailRequestModel requestModel)
         {
             try
             {
-                var response = await _playlistService.tDetail(requestModel);
+                var response = await _playlistService.Detail(requestModel);
                 return Ok(response);
             }
             catch (Exception ex)

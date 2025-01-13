@@ -1,6 +1,6 @@
-#NeteaseCloudMusicApi
+# NeteaseCloudMusicApi
 
-##Features
+## Features
 - User authentication (login, logout, QR code login)
 - Playlist management (create, delete, update)
 - Music search and retrieval

@@ -5,7 +5,7 @@ using NeteaseCloudMusicSDK.ApiClient.Models;
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     public class ArtistController : ControllerBase
     {
         private readonly IArtistService _artistService;
