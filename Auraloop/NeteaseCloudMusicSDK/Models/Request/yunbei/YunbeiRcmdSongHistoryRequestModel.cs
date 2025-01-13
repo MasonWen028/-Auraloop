@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 public class YunbeiRcmdSongHistoryRequestModel
 {
     [JsonProperty("page")]
-    public string Page { get; set; } // it should be the json string of an instance of YunbeiRcmdSongHistoryPage
+    public YunbeiRcmdSongHistoryPage Page { get; set; } // it should be the json string of an instance of YunbeiRcmdSongHistoryPage
 
 }
 
