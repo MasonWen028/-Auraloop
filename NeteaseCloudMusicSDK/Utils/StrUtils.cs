@@ -40,5 +40,15 @@ namespace NeteaseCloudMusicSDK.Utils
             var byteArr = Encoding.UTF8.GetBytes(str);
             return Convert.ToBase64String(byteArr);
         }
+
+        /// <summary>
+        /// Convert string to Utf8ed byte array
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public static byte[] ToByteArrayUtf8(this string value)
+        {
+            return Encoding.UTF8.GetBytes(value);
+        }
     }
 }

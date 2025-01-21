@@ -4,6 +4,8 @@ using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -290,14 +292,47 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
         /// <returns>The encrypted text as a lowercase hexadecimal string.</returns>
         public static string RsaEncrypt(string text, string publicKey)
         {
-            using (var rsa = ImportPublicKey(publicKey))
-            {
-                var data = Encoding.UTF8.GetBytes(text);
-                var encrypted = rsa.Encrypt(data, RSAEncryptionPadding.Pkcs1);
+            // Import the public key
+            var rsa = ImportPublicKey(publicKey);
+            var rsaParameters = rsa.ExportParameters(false); // Only public key data is needed
 
-                return BitConverter.ToString(encrypted).Replace("-", "").ToLower();
+            // Convert the plaintext into bytes
+            var data = Encoding.UTF8.GetBytes(text);
+
+            // Use the low-level RSA encryption logic
+            var encryptedBytes = RsaEncryptLowLevel(data, rsaParameters);
+
+            // Convert the encrypted bytes to a hexadecimal string
+            return BitConverter.ToString(encryptedBytes).Replace("-", "").ToLower();
+        }
+
+        private static byte[] RsaEncryptLowLevel(byte[] buffer, RSAParameters key)
+        {
+            return GetByteArrayBigEndian(BigInteger.ModPow(
+                GetBigIntegerBigEndian(buffer),
+                GetBigIntegerBigEndian(key.Exponent),
+                GetBigIntegerBigEndian(key.Modulus)));
+        }
+
+        private static byte[] GetByteArrayBigEndian(BigInteger value)
+        {
+            byte[] array = value.ToByteArray();
+            if (array[array.Length - 1] == 0)
+            {
+                byte[] array2 = new byte[array.Length - 1];
+                Buffer.BlockCopy(array, 0, array2, 0, array2.Length);
+                array = array2;
             }
-                
+            Array.Reverse(array);
+            return array;
+        }
+
+        private static BigInteger GetBigIntegerBigEndian(byte[] value)
+        {
+            byte[] value2 = new byte[value.Length + 1];
+            for (int i = 0; i < value.Length; i++)
+                value2[value2.Length - i - 2] = value[i];
+            return new BigInteger(value2);
         }
 
         /// <summary>
@@ -310,8 +345,12 @@ MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDgtQn2JZ34ZC28NWYpAUd98iZ37BUrX/aKzmFbt7cl
             var text = JsonConvert.SerializeObject(data);
             var secretKey = RandomStringUtil.GenerateRandomBase62(16);
 
-            var paramsEncrypted = AesEncrypt(AesEncrypt(text, "cbc", presetKey, iv), "cbc", secretKey, iv);
-            var encSecKey = RsaEncrypt(secretKey, publicKey);
+            var aesOne = AesEncrypt(text, "cbc", presetKey, iv);
+
+
+            var paramsEncrypted = AesEncrypt(aesOne, "cbc", secretKey, iv );
+
+            var encSecKey = RsaEncrypt(new string(secretKey.ToCharArray().Reverse().ToArray()), publicKey);
 
             return new
             {

@@ -424,7 +424,6 @@ public class RequestBuilder
         dynamic newData = data?.ToExpandoObject() ?? new ExpandoObject();
         string csrfToken = cookieDic.GetValueOrDefault("__csrf", "");
         crypto = crypto ?? (cfg.Encrypt ? "eapi" : "api");
-        crypto = "eapi";
         //TODO debug other crypto model, current set it as eapi defaultly.
         switch (crypto)
         {
