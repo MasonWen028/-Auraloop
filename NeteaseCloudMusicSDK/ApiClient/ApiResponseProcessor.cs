@@ -57,7 +57,8 @@ namespace NeteaseCloudMusicSDK.ApiClient
 
             try
             {
-                return body;
+                var parsedObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(body);
+                return parsedObject;
             }
             catch (JsonException)
             {

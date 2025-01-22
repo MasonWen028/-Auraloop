@@ -606,7 +606,7 @@ namespace NeteaseCloudMusicSDK.Services
         {
             try
             {
-                var options = new RequestOptions($"/api/playlist/update/playcount", null, "weapi"); 
+                var options = new RequestOptions($"/api/playlist/video/recent", null, "weapi"); 
                 return await _client.HandleRequestAsync(options);
             }
             catch (Exception ex)
