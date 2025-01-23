@@ -240,7 +240,7 @@ namespace NeteaseCloudMusicSDK.Services
         {
             try
             {
-                var options = new RequestOptions($"/api/v1/user/detail/${userId}", null, "weapi");
+                var options = new RequestOptions($"/api/v1/user/detail/{userId}", null, "weapi");
                 return await _client.HandleRequestAsync(options);
             }
             catch (Exception ex)
@@ -675,6 +675,20 @@ namespace NeteaseCloudMusicSDK.Services
             catch (Exception ex)
             {
                 throw new Exception($"Failed to update user details.", ex);
+            }
+        }
+
+        /// <inheritdoc/>
+        public async Task<ApiResponse> GetUserFavoritedSongs(long userId)
+        {
+            try
+            {
+                var options = new RequestOptions($"/api/song/like/get", new { uid = userId });
+                return await _client.HandleRequestAsync(options);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Failed to fecth user favorited songs.", ex);
             }
         }
     }

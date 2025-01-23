@@ -626,5 +626,19 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
             }
         }
 
+
+        [HttpGet("favorited")]
+        public async Task<IActionResult> GetFavorited([FromQuery] long userId)
+        {
+             try
+            {
+                var response = await _userService.GetUserFavoritedSongs(userId);
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Error = ex.Message });
+            }
+        }
     }
 }

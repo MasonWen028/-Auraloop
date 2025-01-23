@@ -152,10 +152,10 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         Task<ApiResponse> Rebind(UserReplacePhoneRequestModel requestModel);
 
         /// <summary>
-         /// Retrieves the current user's social status.
-         /// </summary>
-         /// <param name="userId">The unique identifier of the visitor or user.</param>
-         /// <returns>An <see cref="ApiResponse"/> containing the user's social status.</returns>
+        /// Retrieves the current user's social status.
+        /// </summary>
+        /// <param name="userId">The unique identifier of the visitor or user.</param>
+        /// <returns>An <see cref="ApiResponse"/> containing the user's social status.</returns>
         Task<ApiResponse> SocialStatus(long userId);
 
         /// <summary>
@@ -289,5 +289,12 @@ namespace NeteaseCloudMusicApi_SDK.Interfaces
         /// </summary>
         /// <returns>An <see cref="ApiResponse"/> containing the list of subscribed artists.</returns>
         Task<ApiResponse> GetSubscribedArtists(ArtistSublistRequestModel requestModel);
+
+        /// <summary>
+        /// Retrieves a list of favorited songs for the user
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        Task<ApiResponse> GetUserFavoritedSongs(long userId);
     }
 }
