@@ -3,6 +3,9 @@ using System;
 using System.Threading.Tasks;
 using NeteaseCloudMusicApi_SDK.Interfaces;
 using NeteaseCloudMusicSDK.ApiClient;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using NeteaseCloudMusicSDK.Models.Response;
 
 namespace NeteaseCloudMusicSDK.WebApi.Controllers
 {
@@ -11,12 +14,14 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
     public class PlaylistController : Controller
     {
         private readonly IPlaylistService _playlistService;
+        private readonly ISongService _songService;
         private readonly RequestContext _context;
 
-        public PlaylistController(IPlaylistService playlistService, RequestContext context)
+        public PlaylistController(IPlaylistService playlistService, RequestContext context, ISongService songService )
         {
             _playlistService = playlistService;
             _context = context;
+            _songService = songService;
         }
 
         /// <summary>
@@ -114,6 +119,35 @@ namespace NeteaseCloudMusicSDK.WebApi.Controllers
             {
                 var response = await _playlistService.Detail(requestModel);
                 return Ok(response);
+                //var data = response.Data as Dictionary<string, object>;
+                //var privileges = data["privileges"] as List<object>;
+
+                //var trackIds = new List<long>();
+
+                //foreach (var item in privileges)
+                //{
+                //    var temp = item as Dictionary<string, object>;
+                //    trackIds.Add((long)temp["id"]);
+                //}
+
+
+                //if (trackIds !=null)
+                //{
+
+                //   var songRes = await _songService.Detail(new SongDetailRequestModel() { Ids = trackIds.ToArray()});
+                //   var songData = songRes.Data as Dictionary<string, object>;
+                //    return Ok(new ApiResponse()
+                //    {
+                //        IsSuccess = true,
+                //        Data = new {
+                //            playlist = data["playlist"],
+                //            songs = songData["songs"]
+                //        }
+                //    });
+                //}
+
+
+                //return StatusCode(500, new { Error = "Fail to get playlist info" });
             }
             catch (Exception ex)
             {
