@@ -236,13 +236,13 @@ namespace NeteaseCloudMusicSDK.Services
         {
             try
             {
-                var option = new RequestOptions("/api/song/enhance/player/url", requestModel);
+                var option = new RequestOptions("/api/song/enhance/player/url", new { ids = new long[] { requestModel.id }, br = requestModel.br });
 
                 return await _client.HandleRequestAsync(option);
             }
             catch (Exception ex)
             {
-                throw new Exception($"Failed to fetch the url of song with ID: {JsonConvert.SerializeObject(requestModel.Ids)}", ex);
+                throw new Exception($"Failed to fetch the url of song with ID: {JsonConvert.SerializeObject(requestModel.id)}", ex);
             }
         }
 

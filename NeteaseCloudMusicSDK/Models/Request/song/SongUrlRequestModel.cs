@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 
 public class SongUrlRequestModel
 {
-    [JsonProperty("ids")]
-    public string Ids { get; set; }
-    [JsonProperty("br")]
-    public long Br { get; set; }
+    public long id { get; set; }
+    public long br { get; set; }
 }
